@@ -13,6 +13,29 @@
         .text-primary { color: #1a56db; }
         .card-hover:hover { transform: translateY(-5px); transition: all 0.3s ease; }
         .nav-link:hover { color: #ff9800; }
+        /* Enlarge tools/cards in the slider: icons and text (bigger) */
+        #tools-slider {
+            gap: 2rem !important;
+        }
+        #tools-slider .snap-start {
+            min-width: 380px !important;
+            padding: 2.25rem !important;
+        }
+        #tools-slider .snap-start > div:first-child {
+            width: 5.5rem !important;
+            height: 5.5rem !important;
+            flex: 0 0 5.5rem !important;
+        }
+        #tools-slider .snap-start > div:first-child i {
+            font-size: 2rem !important;
+        }
+        #tools-slider .snap-start h4 {
+            font-size: 1.25rem; /* slightly larger title */
+        }
+        #tools-slider .snap-start p {
+            font-size: 1.125rem; /* larger paragraph */
+            line-height: 1.4;
+        }
     </style>
 </head>
 <body class="bg-gray-50">
@@ -90,6 +113,11 @@
                         <div>
                             <h4 class="font-bold text-blue-800 text-lg">Scratch</h4>
                             <p class="text-base text-gray-600">Lập trình kéo-thả cho trẻ em</p>
+                            <ul class="mt-3 text-sm text-gray-500 space-y-1">
+                                <li>Phát triển tư duy logic & giải quyết vấn đề</li>
+                                <li>Tạo dự án tương tác: game, hoạt hình</li>
+                                <li>Học qua chơi, khuyến khích sáng tạo</li>
+                            </ul>
                         </div>
                     </div>
 
@@ -101,6 +129,11 @@
                         <div>
                             <h4 class="font-bold text-blue-800 text-lg">Python</h4>
                             <p class="text-base text-gray-600">Ngôn ngữ lập trình & ứng dụng AI</p>
+                            <ul class="mt-3 text-sm text-gray-500 space-y-1">
+                                <li>Từ cơ bản đến nâng cao, cú pháp thực tế</li>
+                                <li>Thực hành AI & thư viện: numpy, pandas, simple-ml</li>
+                                <li>Dự án mini: chatbot, phân tích dữ liệu</li>
+                            </ul>
                         </div>
                     </div>
 
@@ -112,6 +145,11 @@
                         <div>
                             <h4 class="font-bold text-blue-800 text-lg">Roblox Studio</h4>
                             <p class="text-base text-gray-600">Tạo game và trải nghiệm 3D</p>
+                            <ul class="mt-3 text-sm text-gray-500 space-y-1">
+                                <li>Thiết kế bản đồ, môi trường 3D</li>
+                                <li>Lập trình Lua cho gameplay & sự kiện</li>
+                                <li>Xây dựng sản phẩm và xuất bản</li>
+                            </ul>
                         </div>
                     </div>
 
@@ -123,6 +161,11 @@
                         <div>
                             <h4 class="font-bold text-blue-800 text-lg">PictobloxAI</h4>
                             <p class="text-base text-gray-600">Lập trình AI dành cho học sinh</p>
+                            <ul class="mt-3 text-sm text-gray-500 space-y-1">
+                                <li>Giao diện kéo-thả tích hợp AI</li>
+                                <li>Nhận diện hình ảnh & xử lý ngôn ngữ cơ bản</li>
+                                <li>Dự án ứng dụng AI đơn giản cho học sinh</li>
+                            </ul>
                         </div>
                     </div>
 
@@ -134,6 +177,11 @@
                         <div>
                             <h4 class="font-bold text-blue-800 text-lg">HTML & CSS</h4>
                             <p class="text-base text-gray-600">Xây dựng giao diện Web cơ bản</p>
+                            <ul class="mt-3 text-sm text-gray-500 space-y-1">
+                                <li>Layout responsive với Flexbox & Grid</li>
+                                <li>Hiệu ứng cơ bản và animation nhẹ</li>
+                                <li>Triển khai trang tĩnh lên hosting</li>
+                            </ul>
                         </div>
                     </div>
 
@@ -145,6 +193,11 @@
                         <div>
                             <h4 class="font-bold text-blue-800 text-lg">Figma</h4>
                             <p class="text-base text-gray-600">Thiết kế giao diện & prototype</p>
+                            <ul class="mt-3 text-sm text-gray-500 space-y-1">
+                                <li>Wireframe, UI design và prototype tương tác</li>
+                                <li>Học quy trình thiết kế từ ý tưởng tới hiển thị</li>
+                                <li>Hợp tác nhóm và nhận phản hồi thiết kế</li>
+                            </ul>
                         </div>
                     </div>
 
@@ -156,6 +209,11 @@
                         <div>
                             <h4 class="font-bold text-blue-800 text-lg">Bootstrap 5</h4>
                             <p class="text-base text-gray-600">Thư viện UI responsive nhanh chóng</p>
+                            <ul class="mt-3 text-sm text-gray-500 space-y-1">
+                                <li>Component sẵn có, tiết kiệm thời gian dev</li>
+                                <li>Responsive với hệ grid & utility classes</li>
+                                <li>Tùy biến theme để phù hợp thương hiệu</li>
+                            </ul>
                         </div>
                     </div>
 
@@ -167,6 +225,11 @@
                         <div>
                             <h4 class="font-bold text-blue-800 text-lg">Canva</h4>
                             <p class="text-base text-gray-600">Thiết kế nhanh poster & nội dung trực quan</p>
+                            <ul class="mt-3 text-sm text-gray-500 space-y-1">
+                                <li>Sử dụng template để tạo nội dung nhanh</li>
+                                <li>Tùy chỉnh hình ảnh, font, màu sắc dễ dàng</li>
+                                <li>Chuẩn hóa bài giảng & tài liệu marketing</li>
+                            </ul>
                         </div>
                     </div>
 
@@ -178,6 +241,11 @@
                         <div>
                             <h4 class="font-bold text-blue-800 text-lg">ToolAI</h4>
                             <p class="text-base text-gray-600">Các công cụ AI hỗ trợ học tập</p>
+                            <ul class="mt-3 text-sm text-gray-500 space-y-1">
+                                <li>Công cụ tạo nội dung & hỗ trợ học tập</li>
+                                <li>Ứng dụng AI nhỏ để giải quyết bài toán thực tế</li>
+                                <li>Hướng dẫn sử dụng và tư duy prompt cơ bản</li>
+                            </ul>
                         </div>
                     </div>
 
@@ -189,6 +257,11 @@
                         <div>
                             <h4 class="font-bold text-blue-800 text-lg">IC3</h4>
                             <p class="text-base text-gray-600">Chứng chỉ tin học cơ bản quốc tế</p>
+                            <ul class="mt-3 text-sm text-gray-500 space-y-1">
+                                <li>Ôn luyện kỹ năng văn phòng cơ bản</li>
+                                <li>Bài tập thực hành theo chuẩn đề thi</li>
+                                <li>Hướng dẫn để đạt chứng chỉ quốc tế</li>
+                            </ul>
                         </div>
                     </div>
 
@@ -200,6 +273,11 @@
                         <div>
                             <h4 class="font-bold text-blue-800 text-lg">MOS</h4>
                             <p class="text-base text-gray-600">Chứng chỉ Microsoft Office Specialist</p>
+                            <ul class="mt-3 text-sm text-gray-500 space-y-1">
+                                <li>Thành thạo Word, Excel, PowerPoint</li>
+                                <li>Bài tập thực tế theo chuẩn MOS</li>
+                                <li>Chuẩn bị thi và nhận chứng chỉ</li>
+                            </ul>
                         </div>
                     </div>
 
@@ -211,6 +289,11 @@
                         <div>
                             <h4 class="font-bold text-blue-800 text-lg">Swift</h4>
                             <p class="text-base text-gray-600">Lập trình iOS cơ bản</p>
+                            <ul class="mt-3 text-sm text-gray-500 space-y-1">
+                                <li>Làm quen với Swift và Xcode</li>
+                                <li>Xây app đơn giản: giao diện & tương tác</li>
+                                <li>Triển khai và thử nghiệm trên thiết bị</li>
+                            </ul>
                         </div>
                     </div>
 
@@ -222,6 +305,11 @@
                         <div>
                             <h4 class="font-bold text-blue-800 text-lg">Django</h4>
                             <p class="text-base text-gray-600">Framework Python để phát triển web</p>
+                            <ul class="mt-3 text-sm text-gray-500 space-y-1">
+                                <li>Xây dựng ứng dụng web & API nhanh</li>
+                                <li>Quản trị, mô hình dữ liệu và authentication</li>
+                                <li>Triển khai ứng dụng lên máy chủ</li>
+                            </ul>
                         </div>
                     </div>
                 </div>
@@ -237,10 +325,10 @@
                         const prev = document.getElementById('tools-prev');
                         const next = document.getElementById('tools-next');
                         const dotsContainer = document.getElementById('tools-dots');
-                        const CARD_WIDTH = 320; // matches min-w + gap approximated for accurate snap
 
                         const cards = slider.querySelectorAll('.snap-start');
-                        // create dots
+
+                        // create dots (handlers use CARD_WIDTH at click time)
                         cards.forEach((c,i)=>{
                             const btn = document.createElement('button');
                             btn.className = 'w-2 h-2 rounded-full bg-gray-300';
@@ -248,6 +336,17 @@
                             btn.addEventListener('click', ()=> slider.scrollTo({ left: i * CARD_WIDTH, behavior: 'smooth' }));
                             dotsContainer.appendChild(btn);
                         });
+
+                        const computeCardWidth = ()=>{
+                            if (!cards.length) return 320;
+                            const cardRect = cards[0].getBoundingClientRect();
+                            const style = getComputedStyle(slider);
+                            const gap = parseFloat(style.gap) || parseFloat(style.columnGap) || 24;
+                            return Math.round(cardRect.width + gap);
+                        };
+
+                        let CARD_WIDTH = computeCardWidth();
+                        window.addEventListener('resize', ()=> { CARD_WIDTH = computeCardWidth(); });
 
                         const updateDots = ()=>{
                             const idx = Math.round(slider.scrollLeft / CARD_WIDTH);
@@ -279,47 +378,219 @@
             </div>
 
             <div class="grid md:grid-cols-3 gap-8">
+                <!-- Scratch -->
                 <div class="bg-white border rounded-2xl p-6 card-hover shadow-sm border-b-8 border-b-blue-500">
                     <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mb-6">
-                        <i class="fas fa-cubes text-blue-600 text-2xl"></i>
+                        <i class="fas fa-puzzle-piece text-orange-500 text-2xl"></i>
                     </div>
-                    <h3 class="text-xl font-bold text-blue-900 mb-3">Lớp Lập Trình Nhí (KIDS)</h3>
-                    <p class="text-gray-500 mb-6 font-medium leading-relaxed italic text-sm">"Dành cho học sinh từ 7 - 11 tuổi"</p>
-                    <ul class="space-y-3 text-gray-700 mb-8">
-                        <li><i class="fas fa-check-circle text-green-500 mr-2"></i> Làm quen Scratch & Robotics</li>
-                        <li><i class="fas fa-check-circle text-green-500 mr-2"></i> Luyện tư duy thuật toán cơ bản</li>
-                        <li><i class="fas fa-check-circle text-green-500 mr-2"></i> Tham gia kỳ thi HKICO quốc tế</li>
+                    <h3 class="text-xl font-bold text-blue-900 mb-3">Lập Trình Scratch (Kids)</h3>
+                    <p class="text-gray-500 mb-6 font-medium leading-relaxed italic text-sm">Dành cho học sinh 7 - 11 tuổi</p>
+                    <ul class="space-y-2 text-gray-700 mb-6">
+                        <li>Làm quen giao diện kéo-thả & vòng lặp cơ bản</li>
+                        <li>Sản xuất game, hoạt hình và dự án nhóm</li>
+                        <li>Phát triển tư duy giải quyết vấn đề</li>
                     </ul>
                     <a href="#" class="block text-center py-3 bg-blue-50 text-blue-700 font-bold rounded-xl hover:bg-blue-600 hover:text-white transition">XEM CHI TIẾT</a>
                 </div>
 
+                <!-- Python -->
                 <div class="bg-white border rounded-2xl p-6 card-hover shadow-sm border-b-8 border-b-orange-500">
                     <div class="w-16 h-16 bg-orange-100 rounded-full flex items-center justify-center mb-6">
                         <i class="fab fa-python text-orange-600 text-2xl"></i>
                     </div>
                     <h3 class="text-xl font-bold text-blue-900 mb-3">Lập Trình Python & AI</h3>
-                    <p class="text-gray-500 mb-6 font-medium leading-relaxed italic text-sm">"Dành cho học sinh từ 12 - 18 tuổi"</p>
-                    <ul class="space-y-3 text-gray-700 mb-8">
-                        <li><i class="fas fa-check-circle text-green-500 mr-2"></i> Python thực chiến & Phân tích dữ liệu</li>
-                        <li><i class="fas fa-check-circle text-green-500 mr-2"></i> Ứng dụng Generative AI & Prompt</li>
-                        <li><i class="fas fa-check-circle text-green-500 mr-2"></i> Xây dựng sản phẩm Web/App</li>
+                    <p class="text-gray-500 mb-6 font-medium leading-relaxed italic text-sm">Dành cho học sinh 12 - 18 tuổi</p>
+                    <ul class="space-y-2 text-gray-700 mb-6">
+                        <li>Python cơ bản đến nâng cao</li>
+                        <li>Ứng dụng AI nhỏ: chatbot, phân tích dữ liệu</li>
+                        <li>Xây dựng sản phẩm Web/App</li>
                     </ul>
                     <a href="#" class="block text-center py-3 bg-orange-50 text-orange-700 font-bold rounded-xl hover:bg-orange-600 hover:text-white transition">XEM CHI TIẾT</a>
                 </div>
 
+                <!-- Robotics -->
                 <div class="bg-white border rounded-2xl p-6 card-hover shadow-sm border-b-8 border-b-red-500">
                     <div class="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mb-6">
                         <i class="fas fa-microchip text-red-600 text-2xl"></i>
                     </div>
                     <h3 class="text-xl font-bold text-blue-900 mb-3">Kỹ Sư Robotics Nhí</h3>
-                    <p class="text-gray-500 mb-6 font-medium leading-relaxed italic text-sm">"Dành cho mọi lứa tuổi đam mê phần cứng"</p>
-                    <ul class="space-y-3 text-gray-700 mb-8">
-                        <li><i class="fas fa-check-circle text-green-500 mr-2"></i> Lắp ráp mạch Arduino/Microbit</li>
-                        <li><i class="fas fa-check-circle text-green-500 mr-2"></i> Lập trình điều khiển Robot tự hành</li>
-                        <li><i class="fas fa-check-circle text-green-500 mr-2"></i> Tham gia các giải đấu STEM quốc gia</li>
+                    <p class="text-gray-500 mb-6 font-medium leading-relaxed italic text-sm">Lắp ráp mạch & lập trình robot</p>
+                    <ul class="space-y-2 text-gray-700 mb-6">
+                        <li>Lắp ráp Arduino & Micro:bit</li>
+                        <li>Lập trình điều khiển robot tự hành</li>
+                        <li>Tham gia cuộc thi STEM, dự án thực tế</li>
                     </ul>
                     <a href="#" class="block text-center py-3 bg-red-50 text-red-700 font-bold rounded-xl hover:bg-red-600 hover:text-white transition">XEM CHI TIẾT</a>
                 </div>
+
+                <!-- PictobloxAI -->
+                <div class="bg-white border rounded-2xl p-6 card-hover shadow-sm">
+                    <div class="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mb-6">
+                        <i class="fas fa-brain text-purple-600 text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-blue-900 mb-3">Pictoblox AI</h3>
+                    <p class="text-gray-500 mb-6 font-medium leading-relaxed italic text-sm">AI trực quan cho học sinh</p>
+                    <ul class="space-y-2 text-gray-700 mb-6">
+                        <li>Giao diện kéo-thả tích hợp AI</li>
+                        <li>Nhận diện ảnh, xử lý ngôn ngữ cơ bản</li>
+                        <li>Dự án ứng dụng AI trực quan</li>
+                    </ul>
+                    <a href="#" class="block text-center py-3 bg-purple-50 text-purple-700 font-bold rounded-xl hover:bg-purple-600 hover:text-white transition">XEM CHI TIẾT</a>
+                </div>
+
+                <!-- HTML & CSS -->
+                <div class="bg-white border rounded-2xl p-6 card-hover shadow-sm">
+                    <div class="w-16 h-16 bg-yellow-100 rounded-full flex items-center justify-center mb-6">
+                        <i class="fas fa-code text-yellow-600 text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-blue-900 mb-3">Front-End: HTML & CSS</h3>
+                    <p class="text-gray-500 mb-6 font-medium leading-relaxed italic text-sm">Xây dựng giao diện responsive</p>
+                    <ul class="space-y-2 text-gray-700 mb-6">
+                        <li>Layout với Flexbox & Grid</li>
+                        <li>Hiệu ứng cơ bản, animation nhẹ</li>
+                        <li>Triển khai trang tĩnh</li>
+                    </ul>
+                    <a href="#" class="block text-center py-3 bg-yellow-50 text-yellow-700 font-bold rounded-xl hover:bg-yellow-600 hover:text-white transition">XEM CHI TIẾT</a>
+                </div>
+
+                <!-- Figma -->
+                <div class="bg-white border rounded-2xl p-6 card-hover shadow-sm">
+                    <div class="w-16 h-16 bg-pink-100 rounded-full flex items-center justify-center mb-6">
+                        <i class="fas fa-pencil-ruler text-pink-600 text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-blue-900 mb-3">Thiết kế UI: Figma</h3>
+                    <p class="text-gray-500 mb-6 font-medium leading-relaxed italic text-sm">Wireframe, prototype và thiết kế</p>
+                    <ul class="space-y-2 text-gray-700 mb-6">
+                        <li>Wireframe và prototype tương tác</li>
+                        <li>Quy trình thiết kế từ ý tưởng</li>
+                        <li>Cộng tác nhóm và feedback</li>
+                    </ul>
+                    <a href="#" class="block text-center py-3 bg-pink-50 text-pink-700 font-bold rounded-xl hover:bg-pink-600 hover:text-white transition">XEM CHI TIẾT</a>
+                </div>
+
+                
+                <!-- end first 6 courses -->
+            </div>
+
+                <!-- hidden: additional courses (will be revealed when user clicks XEM THÊM) -->
+                <div id="more-courses" class="hidden grid md:grid-cols-3 gap-8 mt-6">
+                <!-- Bootstrap -->
+                <div class="bg-white border rounded-2xl p-6 card-hover shadow-sm">
+                    <div class="w-16 h-16 bg-indigo-100 rounded-full flex items-center justify-center mb-6">
+                        <i class="fab fa-bootstrap text-indigo-600 text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-blue-900 mb-3">Bootstrap 5</h3>
+                    <p class="text-gray-500 mb-6 font-medium leading-relaxed italic text-sm">UI nhanh chóng & responsive</p>
+                    <ul class="space-y-2 text-gray-700 mb-6">
+                        <li>Grid, components và utilities</li>
+                        <li>Tùy biến theme và responsive</li>
+                        <li>Tăng tốc phát triển giao diện</li>
+                    </ul>
+                    <a href="#" class="block text-center py-3 bg-indigo-50 text-indigo-700 font-bold rounded-xl hover:bg-indigo-600 hover:text-white transition">XEM CHI TIẾT</a>
+                </div>
+
+                <!-- Canva -->
+                <div class="bg-white border rounded-2xl p-6 card-hover shadow-sm">
+                    <div class="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mb-6">
+                        <i class="fas fa-paint-brush text-red-600 text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-blue-900 mb-3">Thiết kế nội dung: Canva</h3>
+                    <p class="text-gray-500 mb-6 font-medium leading-relaxed italic text-sm">Tạo poster, slide và nội dung trực quan</p>
+                    <ul class="space-y-2 text-gray-700 mb-6">
+                        <li>Sử dụng template & chỉnh sửa nhanh</li>
+                        <li>Tùy chỉnh hình ảnh, font và màu sắc</li>
+                        <li>Chuẩn hóa tài liệu bài giảng</li>
+                    </ul>
+                    <a href="#" class="block text-center py-3 bg-red-50 text-red-700 font-bold rounded-xl hover:bg-red-600 hover:text-white transition">XEM CHI TIẾT</a>
+                </div>
+
+                <!-- ToolAI -->
+                <div class="bg-white border rounded-2xl p-6 card-hover shadow-sm">
+                    <div class="w-16 h-16 bg-teal-100 rounded-full flex items-center justify-center mb-6">
+                        <i class="fas fa-tools text-teal-600 text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-blue-900 mb-3">ToolAI & Ứng dụng</h3>
+                    <p class="text-gray-500 mb-6 font-medium leading-relaxed italic text-sm">Các công cụ AI hỗ trợ học tập và sản phẩm</p>
+                    <ul class="space-y-2 text-gray-700 mb-6">
+                        <li>Công cụ tạo nội dung và hỗ trợ học</li>
+                        <li>Tư duy prompt và ứng dụng thực tế</li>
+                    </ul>
+                    <a href="#" class="block text-center py-3 bg-teal-50 text-teal-700 font-bold rounded-xl hover:bg-teal-600 hover:text-white transition">XEM CHI TIẾT</a>
+                </div>
+
+                <!-- IC3 -->
+                <div class="bg-white border rounded-2xl p-6 card-hover shadow-sm">
+                    <div class="w-16 h-16 bg-amber-100 rounded-full flex items-center justify-center mb-6">
+                        <i class="fas fa-certificate text-amber-600 text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-blue-900 mb-3">IC3 - Kỹ năng tin học cơ bản</h3>
+                    <p class="text-gray-500 mb-6 font-medium leading-relaxed italic text-sm">Chuẩn kỹ năng tin học quốc tế</p>
+                    <ul class="space-y-2 text-gray-700 mb-6">
+                        <li>Ôn luyện kỹ năng văn phòng cơ bản</li>
+                        <li>Bài tập thực hành & mô phỏng đề thi</li>
+                    </ul>
+                    <a href="#" class="block text-center py-3 bg-amber-50 text-amber-700 font-bold rounded-xl hover:bg-amber-600 hover:text-white transition">XEM CHI TIẾT</a>
+                </div>
+
+                <!-- MOS -->
+                <div class="bg-white border rounded-2xl p-6 card-hover shadow-sm">
+                    <div class="w-16 h-16 bg-sky-100 rounded-full flex items-center justify-center mb-6">
+                        <i class="fas fa-file-alt text-sky-600 text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-blue-900 mb-3">MOS - Microsoft Office</h3>
+                    <p class="text-gray-500 mb-6 font-medium leading-relaxed italic text-sm">Chuẩn MOS: Word, Excel, PowerPoint</p>
+                    <ul class="space-y-2 text-gray-700 mb-6">
+                        <li>Thực hành theo chuẩn MOS</li>
+                        <li>Chuẩn bị thi và nhận chứng chỉ</li>
+                    </ul>
+                    <a href="#" class="block text-center py-3 bg-sky-50 text-sky-700 font-bold rounded-xl hover:bg-sky-600 hover:text-white transition">XEM CHI TIẾT</a>
+                </div>
+
+                <!-- Swift -->
+                <div class="bg-white border rounded-2xl p-6 card-hover shadow-sm">
+                    <div class="w-16 h-16 bg-orange-50 rounded-full flex items-center justify-center mb-6">
+                        <i class="fas fa-rocket text-orange-600 text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-blue-900 mb-3">Swift & iOS Basics</h3>
+                    <p class="text-gray-500 mb-6 font-medium leading-relaxed italic text-sm">Làm quen Swift, Xcode và app cơ bản</p>
+                    <ul class="space-y-2 text-gray-700 mb-6">
+                        <li>Giao diện & tương tác trên iOS</li>
+                        <li>Thử nghiệm trên thiết bị</li>
+                    </ul>
+                    <a href="#" class="block text-center py-3 bg-orange-50 text-orange-700 font-bold rounded-xl hover:bg-orange-600 hover:text-white transition">XEM CHI TIẾT</a>
+                </div>
+
+                <!-- Django -->
+                <div class="bg-white border rounded-2xl p-6 card-hover shadow-sm">
+                    <div class="w-16 h-16 bg-green-50 rounded-full flex items-center justify-center mb-6">
+                        <i class="fas fa-leaf text-green-600 text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-blue-900 mb-3">Django Web Development</h3>
+                    <p class="text-gray-500 mb-6 font-medium leading-relaxed italic text-sm">Xây dựng web & API với Django</p>
+                    <ul class="space-y-2 text-gray-700 mb-6">
+                        <li>Models, views, templates và authentication</li>
+                        <li>Triển khai ứng dụng cơ bản</li>
+                    </ul>
+                    <a href="#" class="block text-center py-3 bg-green-50 text-green-700 font-bold rounded-xl hover:bg-green-600 hover:text-white transition">XEM CHI TIẾT</a>
+                </div>
+                </div>
+
+                <div class="text-center mt-6">
+                    <button id="courses-toggle" class="px-6 py-3 bg-orange-500 text-white rounded-full font-bold hover:bg-orange-600 transition">XEM THÊM</button>
+                </div>
+                <script>
+                    (function(){
+                        const btn = document.getElementById('courses-toggle');
+                        const more = document.getElementById('more-courses');
+                        if (!btn || !more) return;
+                        btn.addEventListener('click', ()=>{
+                            const isHidden = more.classList.toggle('hidden');
+                            btn.textContent = isHidden ? 'XEM THÊM' : 'THU GỌN';
+                            // optionally scroll into view of expanded area
+                            if (!isHidden) more.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                        });
+                    })();
+                </script>
             </div>
         </div>
     </section>
