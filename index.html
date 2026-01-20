@@ -7,36 +7,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <style>
-        body { font-family: 'Quicksand', sans-serif; }
-        .bg-soft-blue { background-color: #f0f7ff; }
-        .text-primary { color: #1a56db; }
-        .card-hover:hover { transform: translateY(-5px); transition: all 0.3s ease; }
-        .nav-link:hover { color: #ff9800; }
-        /* Enlarge tools/cards in the slider: icons and text (bigger) */
-        #tools-slider {
-            gap: 2rem !important;
-        }
-        #tools-slider .snap-start {
-            min-width: 380px !important;
-            padding: 2.25rem !important;
-        }
-        #tools-slider .snap-start > div:first-child {
-            width: 5.5rem !important;
-            height: 5.5rem !important;
-            flex: 0 0 5.5rem !important;
-        }
-        #tools-slider .snap-start > div:first-child i {
-            font-size: 2rem !important;
-        }
-        #tools-slider .snap-start h4 {
-            font-size: 1.25rem; /* slightly larger title */
-        }
-        #tools-slider .snap-start p {
-            font-size: 1.125rem; /* larger paragraph */
-            line-height: 1.4;
-        }
-    </style>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body class="bg-gray-50">
 
@@ -318,54 +289,7 @@
                 </button>
 
                 <div id="tools-dots" class="flex items-center justify-center gap-2 mt-4 px-2"></div>
-
-                <script>
-                    (function(){
-                        const slider = document.getElementById('tools-slider');
-                        const prev = document.getElementById('tools-prev');
-                        const next = document.getElementById('tools-next');
-                        const dotsContainer = document.getElementById('tools-dots');
-
-                        const cards = slider.querySelectorAll('.snap-start');
-
-                        // create dots (handlers use CARD_WIDTH at click time)
-                        cards.forEach((c,i)=>{
-                            const btn = document.createElement('button');
-                            btn.className = 'w-2 h-2 rounded-full bg-gray-300';
-                            btn.setAttribute('aria-label', 'Go to slide '+(i+1));
-                            btn.addEventListener('click', ()=> slider.scrollTo({ left: i * CARD_WIDTH, behavior: 'smooth' }));
-                            dotsContainer.appendChild(btn);
-                        });
-
-                        const computeCardWidth = ()=>{
-                            if (!cards.length) return 320;
-                            const cardRect = cards[0].getBoundingClientRect();
-                            const style = getComputedStyle(slider);
-                            const gap = parseFloat(style.gap) || parseFloat(style.columnGap) || 24;
-                            return Math.round(cardRect.width + gap);
-                        };
-
-                        let CARD_WIDTH = computeCardWidth();
-                        window.addEventListener('resize', ()=> { CARD_WIDTH = computeCardWidth(); });
-
-                        const updateDots = ()=>{
-                            const idx = Math.round(slider.scrollLeft / CARD_WIDTH);
-                            [...dotsContainer.children].forEach((d, i)=> d.className = i===idx ? 'w-3 h-3 rounded-full bg-orange-500' : 'w-2 h-2 rounded-full bg-gray-300');
-                        };
-
-                        // init
-                        updateDots();
-
-                        slider.addEventListener('scroll', ()=>{
-                            if (window.requestAnimationFrame) {
-                                window.requestAnimationFrame(updateDots);
-                            } else updateDots();
-                        });
-
-                        prev && prev.addEventListener('click', ()=> slider.scrollBy({ left: -CARD_WIDTH, behavior: 'smooth' }));
-                        next && next.addEventListener('click', ()=> slider.scrollBy({ left: CARD_WIDTH, behavior: 'smooth' }));
-                    })();
-                </script>
+                <script src="slider.js"></script>
             </div>
         </div>
     </section>
@@ -393,6 +317,21 @@
                     <a href="#" class="block text-center py-3 bg-blue-50 text-blue-700 font-bold rounded-xl hover:bg-blue-600 hover:text-white transition">XEM CHI TIẾT</a>
                 </div>
 
+                <!-- PictobloxAI -->
+                <div class="bg-white border rounded-2xl p-6 card-hover shadow-sm border-b-8 border-b-purple-500">
+                    <div class="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mb-6">
+                        <i class="fas fa-brain text-purple-600 text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-blue-900 mb-3">Pictoblox AI</h3>
+                    <p class="text-gray-500 mb-6 font-medium leading-relaxed italic text-sm">AI trực quan cho học sinh</p>
+                    <ul class="space-y-2 text-gray-700 mb-6">
+                        <li>Giao diện kéo-thả tích hợp AI</li>
+                        <li>Nhận diện ảnh, xử lý ngôn ngữ cơ bản</li>
+                        <li>Dự án ứng dụng AI trực quan</li>
+                    </ul>
+                    <a href="#" class="block text-center py-3 bg-purple-50 text-purple-700 font-bold rounded-xl hover:bg-purple-600 hover:text-white transition">XEM CHI TIẾT</a>
+                </div>
+
                 <!-- Python -->
                 <div class="bg-white border rounded-2xl p-6 card-hover shadow-sm border-b-8 border-b-orange-500">
                     <div class="w-16 h-16 bg-orange-100 rounded-full flex items-center justify-center mb-6">
@@ -408,8 +347,59 @@
                     <a href="#" class="block text-center py-3 bg-orange-50 text-orange-700 font-bold rounded-xl hover:bg-orange-600 hover:text-white transition">XEM CHI TIẾT</a>
                 </div>
 
+                <!-- Front-End Web -->
+                <div class="bg-white border rounded-2xl p-6 card-hover shadow-sm border-b-8 border-b-yellow-500">
+                    <div class="w-16 h-16 bg-yellow-100 rounded-full flex items-center justify-center mb-6">
+                        <i class="fas fa-code text-yellow-600 text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-blue-900 mb-3">Lập Trình Web (HTML, CSS, JS)</h3>
+                    <p class="text-gray-500 mb-6 font-medium leading-relaxed italic text-sm">Xây dựng giao diện web responsive</p>
+                    <ul class="space-y-2 text-gray-700 mb-6">
+                        <li>HTML & CSS cơ bản đến nâng cao</li>
+                        <li>Layout với Flexbox & Grid</li>
+                        <li>JavaScript interactivity & DOM manipulation</li>
+                    </ul>
+                    <a href="#" class="block text-center py-3 bg-yellow-50 text-yellow-700 font-bold rounded-xl hover:bg-yellow-600 hover:text-white transition">XEM CHI TIẾT</a>
+                </div>
+
+                <!-- ToolAI -->
+                <div class="bg-white border rounded-2xl p-6 card-hover shadow-sm border-b-8 border-b-teal-500">
+                    <div class="w-16 h-16 bg-teal-100 rounded-full flex items-center justify-center mb-6">
+                        <i class="fas fa-tools text-teal-600 text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-blue-900 mb-3">ToolAI & Ứng dụng</h3>
+                    <p class="text-gray-500 mb-6 font-medium leading-relaxed italic text-sm">Các công cụ AI hỗ trợ học tập</p>
+                    <ul class="space-y-2 text-gray-700 mb-6">
+                        <li>Công cụ tạo nội dung và hỗ trợ học</li>
+                        <li>Tư duy prompt và ứng dụng thực tế</li>
+                        <li>Kỹ năng sử dụng AI trong học tập</li>
+                    </ul>
+                    <a href="#" class="block text-center py-3 bg-teal-50 text-teal-700 font-bold rounded-xl hover:bg-teal-600 hover:text-white transition">XEM CHI TIẾT</a>
+                </div>
+
+                <!-- Luyện thi HKICO & THT -->
+                <div class="bg-white border rounded-2xl p-6 card-hover shadow-sm border-b-8 border-b-rose-500">
+                    <div class="w-16 h-16 bg-rose-100 rounded-full flex items-center justify-center mb-6">
+                        <i class="fas fa-trophy text-rose-600 text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-blue-900 mb-3">Luyện thi HKICO & THT</h3>
+                    <p class="text-gray-500 mb-6 font-medium leading-relaxed italic text-sm">Chuẩn bị thi cuộc thi lập trình quốc tế</p>
+                    <ul class="space-y-2 text-gray-700 mb-6">
+                        <li>Ôn luyện kỹ thuật & thuật toán cơ bản</li>
+                        <li>Luyện đề thi HKICO, THT và các cuộc thi khác</li>
+                        <li>Chiến lược giải quyết bài toán nhanh chóng</li>
+                    </ul>
+                    <a href="#" class="block text-center py-3 bg-rose-50 text-rose-700 font-bold rounded-xl hover:bg-rose-600 hover:text-white transition">XEM CHI TIẾT</a>
+                </div>
+
+                
+                <!-- end first 6 courses -->
+            </div>
+
+                <!-- hidden: additional courses (will be revealed when user clicks XEM THÊM) -->
+                <div id="more-courses" class="hidden grid md:grid-cols-3 gap-8 mt-6">
                 <!-- Robotics -->
-                <div class="bg-white border rounded-2xl p-6 card-hover shadow-sm border-b-8 border-b-red-500">
+                <div class="bg-white border rounded-2xl p-6 card-hover shadow-sm">
                     <div class="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mb-6">
                         <i class="fas fa-microchip text-red-600 text-2xl"></i>
                     </div>
@@ -421,36 +411,6 @@
                         <li>Tham gia cuộc thi STEM, dự án thực tế</li>
                     </ul>
                     <a href="#" class="block text-center py-3 bg-red-50 text-red-700 font-bold rounded-xl hover:bg-red-600 hover:text-white transition">XEM CHI TIẾT</a>
-                </div>
-
-                <!-- PictobloxAI -->
-                <div class="bg-white border rounded-2xl p-6 card-hover shadow-sm">
-                    <div class="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mb-6">
-                        <i class="fas fa-brain text-purple-600 text-2xl"></i>
-                    </div>
-                    <h3 class="text-xl font-bold text-blue-900 mb-3">Pictoblox AI</h3>
-                    <p class="text-gray-500 mb-6 font-medium leading-relaxed italic text-sm">AI trực quan cho học sinh</p>
-                    <ul class="space-y-2 text-gray-700 mb-6">
-                        <li>Giao diện kéo-thả tích hợp AI</li>
-                        <li>Nhận diện ảnh, xử lý ngôn ngữ cơ bản</li>
-                        <li>Dự án ứng dụng AI trực quan</li>
-                    </ul>
-                    <a href="#" class="block text-center py-3 bg-purple-50 text-purple-700 font-bold rounded-xl hover:bg-purple-600 hover:text-white transition">XEM CHI TIẾT</a>
-                </div>
-
-                <!-- HTML & CSS -->
-                <div class="bg-white border rounded-2xl p-6 card-hover shadow-sm">
-                    <div class="w-16 h-16 bg-yellow-100 rounded-full flex items-center justify-center mb-6">
-                        <i class="fas fa-code text-yellow-600 text-2xl"></i>
-                    </div>
-                    <h3 class="text-xl font-bold text-blue-900 mb-3">Front-End: HTML & CSS</h3>
-                    <p class="text-gray-500 mb-6 font-medium leading-relaxed italic text-sm">Xây dựng giao diện responsive</p>
-                    <ul class="space-y-2 text-gray-700 mb-6">
-                        <li>Layout với Flexbox & Grid</li>
-                        <li>Hiệu ứng cơ bản, animation nhẹ</li>
-                        <li>Triển khai trang tĩnh</li>
-                    </ul>
-                    <a href="#" class="block text-center py-3 bg-yellow-50 text-yellow-700 font-bold rounded-xl hover:bg-yellow-600 hover:text-white transition">XEM CHI TIẾT</a>
                 </div>
 
                 <!-- Figma -->
@@ -468,12 +428,6 @@
                     <a href="#" class="block text-center py-3 bg-pink-50 text-pink-700 font-bold rounded-xl hover:bg-pink-600 hover:text-white transition">XEM CHI TIẾT</a>
                 </div>
 
-                
-                <!-- end first 6 courses -->
-            </div>
-
-                <!-- hidden: additional courses (will be revealed when user clicks XEM THÊM) -->
-                <div id="more-courses" class="hidden grid md:grid-cols-3 gap-8 mt-6">
                 <!-- Bootstrap -->
                 <div class="bg-white border rounded-2xl p-6 card-hover shadow-sm">
                     <div class="w-16 h-16 bg-indigo-100 rounded-full flex items-center justify-center mb-6">
@@ -502,20 +456,6 @@
                         <li>Chuẩn hóa tài liệu bài giảng</li>
                     </ul>
                     <a href="#" class="block text-center py-3 bg-red-50 text-red-700 font-bold rounded-xl hover:bg-red-600 hover:text-white transition">XEM CHI TIẾT</a>
-                </div>
-
-                <!-- ToolAI -->
-                <div class="bg-white border rounded-2xl p-6 card-hover shadow-sm">
-                    <div class="w-16 h-16 bg-teal-100 rounded-full flex items-center justify-center mb-6">
-                        <i class="fas fa-tools text-teal-600 text-2xl"></i>
-                    </div>
-                    <h3 class="text-xl font-bold text-blue-900 mb-3">ToolAI & Ứng dụng</h3>
-                    <p class="text-gray-500 mb-6 font-medium leading-relaxed italic text-sm">Các công cụ AI hỗ trợ học tập và sản phẩm</p>
-                    <ul class="space-y-2 text-gray-700 mb-6">
-                        <li>Công cụ tạo nội dung và hỗ trợ học</li>
-                        <li>Tư duy prompt và ứng dụng thực tế</li>
-                    </ul>
-                    <a href="#" class="block text-center py-3 bg-teal-50 text-teal-700 font-bold rounded-xl hover:bg-teal-600 hover:text-white transition">XEM CHI TIẾT</a>
                 </div>
 
                 <!-- IC3 -->
@@ -578,19 +518,7 @@
                 <div class="text-center mt-6">
                     <button id="courses-toggle" class="px-6 py-3 bg-orange-500 text-white rounded-full font-bold hover:bg-orange-600 transition">XEM THÊM</button>
                 </div>
-                <script>
-                    (function(){
-                        const btn = document.getElementById('courses-toggle');
-                        const more = document.getElementById('more-courses');
-                        if (!btn || !more) return;
-                        btn.addEventListener('click', ()=>{
-                            const isHidden = more.classList.toggle('hidden');
-                            btn.textContent = isHidden ? 'XEM THÊM' : 'THU GỌN';
-                            // optionally scroll into view of expanded area
-                            if (!isHidden) more.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                        });
-                    })();
-                </script>
+                <script src="courses.js"></script>
             </div>
         </div>
     </section>
@@ -630,6 +558,16 @@
             </div>
         </div>
     </section>
+
+    <div id="course-modal" class="hidden fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4">
+        <div class="bg-white rounded-2xl max-h-[90vh] overflow-y-auto w-full max-w-4xl">
+            <div class="sticky top-0 bg-white border-b flex justify-between items-center p-6">
+                <h2 id="modal-title" class="text-2xl font-bold text-blue-900"></h2>
+                <button id="modal-close" class="text-gray-400 hover:text-gray-600 text-2xl">✕</button>
+            </div>
+            <div id="modal-course-content" class="p-6"></div>
+        </div>
+    </div>
 
     <footer id="contact" class="bg-blue-900 text-white pt-20 pb-10">
         <div class="max-w-6xl mx-auto px-4 grid md:grid-cols-2 gap-16 border-b border-blue-800 pb-16">
@@ -679,5 +617,7 @@
         </div>
     </footer>
 
+    <script src="coursesData.js"></script>
+    <script src="courseModal.js"></script>
 </body>
 </html>
