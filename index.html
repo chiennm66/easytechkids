@@ -1,623 +1,194 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nguyễn Minh Chiến - easytechkids</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link rel="stylesheet" href="styles.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>3D Models Store - Thư viện mẫu 3D chất lượng cao</title>
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
 </head>
-<body class="bg-gray-50">
+<body>
 
-    <div class="bg-blue-600 text-white py-2 text-sm">
-        <div class="max-w-6xl mx-auto px-4 flex justify-between items-center">
-            <span><i class="fas fa-envelope mr-2"></i> chien97666@gmail.com</span>
-            <span class="hidden md:inline"><i class="fas fa-phone mr-2"></i> Hotline: 0983.666.763</span>
-        </div>
+  <!-- HEADER -->
+  <header class="header">
+    <div class="header-inner">
+      <a href="#" class="logo" onclick="resetFilters(); return false;">
+        <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+          <rect width="32" height="32" rx="8" fill="#2563EB"/>
+          <path d="M8 12l8-4 8 4v8l-8 4-8-4V12z" stroke="white" stroke-width="1.5" fill="none"/>
+          <path d="M8 12l8 4 8-4M16 16v8" stroke="white" stroke-width="1.5"/>
+        </svg>
+        <span>3D<strong>Store</strong></span>
+      </a>
+
+      <div class="search-box">
+        <svg class="search-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
+        </svg>
+        <input type="text" id="searchInput" placeholder="Tìm kiếm 3D model..." autocomplete="off" />
+        <button class="search-clear" id="searchClear" onclick="clearSearch()">✕</button>
+      </div>
+
+      <div class="header-actions">
+        <a class="zalo-btn-header" id="zaloHeaderBtn" href="#" target="_blank">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/91/Icon_of_Zalo.svg/120px-Icon_of_Zalo.svg.png" alt="Zalo" width="20" height="20" />
+          Liên hệ Zalo
+        </a>
+      </div>
     </div>
+  </header>
 
-    <nav class="bg-white shadow-md sticky top-0 z-50">
-        <div class="max-w-6xl mx-auto px-4 py-4 flex justify-between items-center">
-            <div class="flex items-center space-x-2">
-                <div class="bg-blue-600 p-2 rounded-lg">
-                    <i class="fas fa-graduation-cap text-white text-2xl"></i>
-                </div>
-                <div>
-                    <span class="block text-xl font-bold text-blue-800 leading-none">MINH CHIẾN</span>
-                    <span class="text-xs text-orange-500 font-bold tracking-widest">easytechkids</span>
-                </div>
-            </div>
-            <div class="hidden md:flex space-x-8 font-semibold text-gray-700">
-                <a href="#" class="nav-link">TRANG CHỦ</a>
-                <a href="#about" class="nav-link">GIỚI THIỆU</a>
-                <a href="#courses" class="nav-link">KHÓA HỌC</a>
-                <a href="#projects" class="nav-link">SẢN PHẨM HS</a>
-                <a href="#contact" class="nav-link text-orange-600">LIÊN HỆ</a>
-            </div>
+  <!-- MAIN LAYOUT -->
+  <div class="layout">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-section">
+        <h3 class="sidebar-title">Danh mục</h3>
+        <ul class="category-list" id="categoryList">
+          <li class="category-item active" data-category="all" onclick="filterByCategory('all')">
+            <span class="cat-icon">&#9632;</span>
+            <span class="cat-name">Tất cả</span>
+            <span class="cat-count" id="count-all">0</span>
+          </li>
+        </ul>
+      </div>
+
+      <div class="sidebar-section">
+        <h3 class="sidebar-title">Loại file</h3>
+        <ul class="type-list" id="typeList">
+          <li class="type-item active" data-type="all" onclick="filterByType('all')">Tất cả</li>
+          <li class="type-item" data-type="FREE" onclick="filterByType('FREE')">
+            <span class="badge-free">FREE</span>
+          </li>
+          <li class="type-item" data-type="PRO" onclick="filterByType('PRO')">
+            <span class="badge-pro">PRO</span>
+          </li>
+        </ul>
+      </div>
+
+      <div class="sidebar-section" id="softwareSection" style="display:none">
+        <h3 class="sidebar-title">Phần mềm</h3>
+        <ul class="software-list" id="softwareList"></ul>
+      </div>
+    </aside>
+
+    <!-- CONTENT -->
+    <main class="content">
+
+      <!-- TOOLBAR -->
+      <div class="toolbar">
+        <div class="toolbar-left">
+          <button class="btn-type active" id="btnAll" onclick="filterByType('all')">Tất cả</button>
+          <button class="btn-type btn-pro" id="btnPRO" onclick="filterByType('PRO')">PRO</button>
+          <button class="btn-type btn-free" id="btnFREE" onclick="filterByType('FREE')">FREE</button>
         </div>
-    </nav>
-
-    <section class="bg-soft-blue py-16">
-        <div class="max-w-6xl mx-auto px-4 flex flex-col md:flex-row items-center">
-            <div class="md:w-1/2 space-y-6">
-                <span class="bg-orange-100 text-orange-600 px-4 py-1 rounded-full font-bold text-sm">Chào mừng bạn đến với lớp học của thầy Chiến</span>
-                <h1 class="text-4xl md:text-5xl font-extrabold text-blue-900 leading-tight">
-                    Học Lập Trình & Robotics <br>
-                    <span class="text-orange-500">Phát Triển Tư Duy Toàn Diện</span>
-                </h1>
-                <p class="text-gray-600 text-lg">
-                    Với hơn 7 năm kinh nghiệm và 2.000+ giờ giảng dạy, tôi cam kết mang lại lộ trình học công nghệ thực chiến, giúp các em học sinh làm chủ kỷ nguyên AI.
-                </p>
-                <div class="flex space-x-4">
-                    <a href="#courses" class="bg-orange-500 text-white px-8 py-3 rounded-full font-bold hover:bg-orange-600 shadow-lg transition">XEM LỚP MỚI</a>
-                    <a href="#contact" class="bg-white text-blue-600 border-2 border-blue-600 px-8 py-3 rounded-full font-bold hover:bg-blue-50 transition">TƯ VẤN MIỄN PHÍ</a>
-                </div>
-            </div>
-            <div class="md:w-1/2 mt-12 md:mt-0 relative">
-                <div class="absolute -top-4 -left-4 w-24 h-24 bg-orange-200 rounded-full mix-blend-multiply filter blur-xl opacity-70"></div>
-                <img src="https://img.freepik.com/free-vector/creative-thinking-concept-illustration_114360-3507.jpg" alt="Học lập trình" class="relative rounded-2xl">
-            </div>
+        <div class="toolbar-right">
+          <span class="result-count" id="resultCount">Đang tải...</span>
+          <select class="sort-select" id="sortSelect" onchange="applyFilters()">
+            <option value="newest">Mới nhất</option>
+            <option value="name_az">Tên A→Z</option>
+            <option value="name_za">Tên Z→A</option>
+            <option value="free_first">Miễn phí trước</option>
+          </select>
         </div>
-    </section>
+      </div>
 
-    <section id="tools" class="py-20 bg-gray-50">
-        <div class="max-w-6xl mx-auto px-4">
-            <div class="text-center mb-12">
-                <h2 class="text-3xl font-bold text-blue-900">CÔNG CỤ & NGÔN NGỮ</h2>
-                <div class="w-24 h-1 bg-orange-500 mx-auto mt-4"></div>
-                <p class="text-gray-600 mt-4">Các công cụ và ngôn ngữ các em sẽ được học tại easytechkids.</p>
-            </div>
+      <!-- ACTIVE FILTERS TAG -->
+      <div class="active-filters" id="activeFilters"></div>
 
-            <div class="relative">
-                <button id="tools-prev" aria-label="Previous" class="hidden md:flex items-center justify-center absolute left-0 top-1/2 -translate-y-1/2 -ml-4 w-10 h-10 bg-white rounded-full shadow-md"> 
-                    <span class="text-2xl text-blue-700">‹</span>
-                </button>
+      <!-- MODEL GRID -->
+      <div class="models-grid" id="modelsGrid">
+        <div class="skeleton-card"></div>
+        <div class="skeleton-card"></div>
+        <div class="skeleton-card"></div>
+        <div class="skeleton-card"></div>
+        <div class="skeleton-card"></div>
+        <div class="skeleton-card"></div>
+        <div class="skeleton-card"></div>
+        <div class="skeleton-card"></div>
+      </div>
 
-                <div id="tools-slider" class="overflow-x-auto scroll-smooth snap-x snap-mandatory flex gap-6 py-6 px-6">
-                    <!-- card: Scratch -->
-                    <div class="min-w-[300px] snap-start bg-white rounded-3xl p-6 shadow-lg flex items-start space-x-5">
-                        <div class="w-14 h-14 bg-blue-100 rounded-full flex items-center justify-center text-orange-500">
-                            <i class="fas fa-puzzle-piece text-2xl"></i>
-                        </div>
-                        <div>
-                            <h4 class="font-bold text-blue-800 text-lg">Scratch</h4>
-                            <p class="text-base text-gray-600">Lập trình kéo-thả cho trẻ em</p>
-                            <ul class="mt-3 text-sm text-gray-500 space-y-1">
-                                <li>Phát triển tư duy logic & giải quyết vấn đề</li>
-                                <li>Tạo dự án tương tác: game, hoạt hình</li>
-                                <li>Học qua chơi, khuyến khích sáng tạo</li>
-                            </ul>
-                        </div>
-                    </div>
+      <!-- EMPTY STATE -->
+      <div class="empty-state" id="emptyState" style="display:none">
+        <svg width="72" height="72" viewBox="0 0 24 24" fill="none" stroke="#94a3b8" stroke-width="1.2">
+          <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
+        </svg>
+        <h3>Không tìm thấy model nào</h3>
+        <p>Thử thay đổi bộ lọc hoặc từ khóa tìm kiếm</p>
+        <button onclick="resetFilters()">Xóa bộ lọc</button>
+      </div>
 
-                    <!-- card: Python -->
-                    <div class="min-w-[300px] snap-start bg-white rounded-3xl p-6 shadow-lg flex items-start space-x-5">
-                        <div class="w-14 h-14 bg-orange-100 rounded-full flex items-center justify-center text-blue-600">
-                            <i class="fab fa-python text-2xl"></i>
-                        </div>
-                        <div>
-                            <h4 class="font-bold text-blue-800 text-lg">Python</h4>
-                            <p class="text-base text-gray-600">Ngôn ngữ lập trình & ứng dụng AI</p>
-                            <ul class="mt-3 text-sm text-gray-500 space-y-1">
-                                <li>Từ cơ bản đến nâng cao, cú pháp thực tế</li>
-                                <li>Thực hành AI & thư viện: numpy, pandas, simple-ml</li>
-                                <li>Dự án mini: chatbot, phân tích dữ liệu</li>
-                            </ul>
-                        </div>
-                    </div>
+      <!-- LOAD MORE -->
+      <div class="load-more-wrap" id="loadMoreWrap" style="display:none">
+        <button class="load-more-btn" onclick="loadMore()">Xem thêm</button>
+      </div>
 
-                    <!-- card: Roblox Studio -->
-                    <div class="min-w-[300px] snap-start bg-white rounded-3xl p-6 shadow-lg flex items-start space-x-5">
-                        <div class="w-14 h-14 bg-green-100 rounded-full flex items-center justify-center text-green-600">
-                            <i class="fas fa-robot text-2xl"></i>
-                        </div>
-                        <div>
-                            <h4 class="font-bold text-blue-800 text-lg">Roblox Studio</h4>
-                            <p class="text-base text-gray-600">Tạo game và trải nghiệm 3D</p>
-                            <ul class="mt-3 text-sm text-gray-500 space-y-1">
-                                <li>Thiết kế bản đồ, môi trường 3D</li>
-                                <li>Lập trình Lua cho gameplay & sự kiện</li>
-                                <li>Xây dựng sản phẩm và xuất bản</li>
-                            </ul>
-                        </div>
-                    </div>
+    </main>
+  </div>
 
-                    <!-- card: PictobloxAI -->
-                    <div class="min-w-[300px] snap-start bg-white rounded-3xl p-6 shadow-lg flex items-start space-x-5">
-                        <div class="w-14 h-14 bg-purple-100 rounded-full flex items-center justify-center text-purple-600">
-                            <i class="fas fa-brain text-2xl"></i>
-                        </div>
-                        <div>
-                            <h4 class="font-bold text-blue-800 text-lg">PictobloxAI</h4>
-                            <p class="text-base text-gray-600">Lập trình AI dành cho học sinh</p>
-                            <ul class="mt-3 text-sm text-gray-500 space-y-1">
-                                <li>Giao diện kéo-thả tích hợp AI</li>
-                                <li>Nhận diện hình ảnh & xử lý ngôn ngữ cơ bản</li>
-                                <li>Dự án ứng dụng AI đơn giản cho học sinh</li>
-                            </ul>
-                        </div>
-                    </div>
+  <!-- MOBILE FILTER TOGGLE -->
+  <button class="mobile-filter-btn" onclick="toggleSidebar()">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/>
+    </svg>
+    Bộ lọc
+  </button>
 
-                    <!-- card: HTML & CSS -->
-                    <div class="min-w-[300px] snap-start bg-white rounded-3xl p-6 shadow-lg flex items-start space-x-5">
-                        <div class="w-14 h-14 bg-yellow-100 rounded-full flex items-center justify-center text-yellow-600">
-                            <i class="fas fa-code text-2xl"></i>
-                        </div>
-                        <div>
-                            <h4 class="font-bold text-blue-800 text-lg">HTML & CSS</h4>
-                            <p class="text-base text-gray-600">Xây dựng giao diện Web cơ bản</p>
-                            <ul class="mt-3 text-sm text-gray-500 space-y-1">
-                                <li>Layout responsive với Flexbox & Grid</li>
-                                <li>Hiệu ứng cơ bản và animation nhẹ</li>
-                                <li>Triển khai trang tĩnh lên hosting</li>
-                            </ul>
-                        </div>
-                    </div>
+  <!-- ZALO FLOAT BUTTON -->
+  <a class="zalo-float" id="zaloFloat" href="#" target="_blank" title="Liên hệ Zalo">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/91/Icon_of_Zalo.svg/120px-Icon_of_Zalo.svg.png" alt="Zalo" />
+    <span class="zalo-tooltip">Liên hệ mua model</span>
+  </a>
 
-                    <!-- card: Figma -->
-                    <div class="min-w-[300px] snap-start bg-white rounded-3xl p-6 shadow-lg flex items-start space-x-5">
-                        <div class="w-14 h-14 bg-pink-100 rounded-full flex items-center justify-center text-pink-600">
-                            <i class="fas fa-pencil-ruler text-2xl"></i>
-                        </div>
-                        <div>
-                            <h4 class="font-bold text-blue-800 text-lg">Figma</h4>
-                            <p class="text-base text-gray-600">Thiết kế giao diện & prototype</p>
-                            <ul class="mt-3 text-sm text-gray-500 space-y-1">
-                                <li>Wireframe, UI design và prototype tương tác</li>
-                                <li>Học quy trình thiết kế từ ý tưởng tới hiển thị</li>
-                                <li>Hợp tác nhóm và nhận phản hồi thiết kế</li>
-                            </ul>
-                        </div>
-                    </div>
+  <!-- GALLERY MODAL -->
+  <div class="modal-overlay" id="modalOverlay" onclick="handleOverlayClick(event)">
+    <div class="modal-box" id="modalBox">
 
-                    <!-- card: Bootstrap 5 -->
-                    <div class="min-w-[300px] snap-start bg-white rounded-3xl p-6 shadow-lg flex items-start space-x-5">
-                        <div class="w-14 h-14 bg-indigo-100 rounded-full flex items-center justify-center text-indigo-600">
-                            <i class="fab fa-bootstrap text-2xl"></i>
-                        </div>
-                        <div>
-                            <h4 class="font-bold text-blue-800 text-lg">Bootstrap 5</h4>
-                            <p class="text-base text-gray-600">Thư viện UI responsive nhanh chóng</p>
-                            <ul class="mt-3 text-sm text-gray-500 space-y-1">
-                                <li>Component sẵn có, tiết kiệm thời gian dev</li>
-                                <li>Responsive với hệ grid & utility classes</li>
-                                <li>Tùy biến theme để phù hợp thương hiệu</li>
-                            </ul>
-                        </div>
-                    </div>
+      <button class="modal-close" onclick="closeModal()">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+          <path d="M18 6 6 18M6 6l12 12"/>
+        </svg>
+      </button>
 
-                    <!-- card: Canva -->
-                    <div class="min-w-[300px] snap-start bg-white rounded-3xl p-6 shadow-lg flex items-start space-x-5">
-                        <div class="w-14 h-14 bg-red-100 rounded-full flex items-center justify-center text-red-600">
-                            <i class="fas fa-paint-brush text-2xl"></i>
-                        </div>
-                        <div>
-                            <h4 class="font-bold text-blue-800 text-lg">Canva</h4>
-                            <p class="text-base text-gray-600">Thiết kế nhanh poster & nội dung trực quan</p>
-                            <ul class="mt-3 text-sm text-gray-500 space-y-1">
-                                <li>Sử dụng template để tạo nội dung nhanh</li>
-                                <li>Tùy chỉnh hình ảnh, font, màu sắc dễ dàng</li>
-                                <li>Chuẩn hóa bài giảng & tài liệu marketing</li>
-                            </ul>
-                        </div>
-                    </div>
-
-                    <!-- card: ToolAI -->
-                    <div class="min-w-[300px] snap-start bg-white rounded-3xl p-6 shadow-lg flex items-start space-x-5">
-                        <div class="w-14 h-14 bg-teal-100 rounded-full flex items-center justify-center text-teal-600">
-                            <i class="fas fa-tools text-2xl"></i>
-                        </div>
-                        <div>
-                            <h4 class="font-bold text-blue-800 text-lg">ToolAI</h4>
-                            <p class="text-base text-gray-600">Các công cụ AI hỗ trợ học tập</p>
-                            <ul class="mt-3 text-sm text-gray-500 space-y-1">
-                                <li>Công cụ tạo nội dung & hỗ trợ học tập</li>
-                                <li>Ứng dụng AI nhỏ để giải quyết bài toán thực tế</li>
-                                <li>Hướng dẫn sử dụng và tư duy prompt cơ bản</li>
-                            </ul>
-                        </div>
-                    </div>
-
-                    <!-- card: IC3 -->
-                    <div class="min-w-[300px] snap-start bg-white rounded-3xl p-6 shadow-lg flex items-start space-x-4">
-                        <div class="w-14 h-14 bg-amber-100 rounded-full flex items-center justify-center text-amber-600">
-                            <i class="fas fa-certificate text-2xl"></i>
-                        </div>
-                        <div>
-                            <h4 class="font-bold text-blue-800 text-lg">IC3</h4>
-                            <p class="text-base text-gray-600">Chứng chỉ tin học cơ bản quốc tế</p>
-                            <ul class="mt-3 text-sm text-gray-500 space-y-1">
-                                <li>Ôn luyện kỹ năng văn phòng cơ bản</li>
-                                <li>Bài tập thực hành theo chuẩn đề thi</li>
-                                <li>Hướng dẫn để đạt chứng chỉ quốc tế</li>
-                            </ul>
-                        </div>
-                    </div>
-
-                    <!-- card: MOS -->
-                    <div class="min-w-[300px] snap-start bg-white rounded-3xl p-6 shadow-lg flex items-start space-x-4">
-                        <div class="w-14 h-14 bg-sky-100 rounded-full flex items-center justify-center text-sky-600">
-                            <i class="fas fa-file-alt text-2xl"></i>
-                        </div>
-                        <div>
-                            <h4 class="font-bold text-blue-800 text-lg">MOS</h4>
-                            <p class="text-base text-gray-600">Chứng chỉ Microsoft Office Specialist</p>
-                            <ul class="mt-3 text-sm text-gray-500 space-y-1">
-                                <li>Thành thạo Word, Excel, PowerPoint</li>
-                                <li>Bài tập thực tế theo chuẩn MOS</li>
-                                <li>Chuẩn bị thi và nhận chứng chỉ</li>
-                            </ul>
-                        </div>
-                    </div>
-
-                    <!-- card: Swift -->
-                    <div class="min-w-[300px] snap-start bg-white rounded-3xl p-6 shadow-lg flex items-start space-x-4">
-                        <div class="w-14 h-14 bg-orange-50 rounded-full flex items-center justify-center text-orange-600">
-                            <i class="fas fa-rocket text-2xl"></i>
-                        </div>
-                        <div>
-                            <h4 class="font-bold text-blue-800 text-lg">Swift</h4>
-                            <p class="text-base text-gray-600">Lập trình iOS cơ bản</p>
-                            <ul class="mt-3 text-sm text-gray-500 space-y-1">
-                                <li>Làm quen với Swift và Xcode</li>
-                                <li>Xây app đơn giản: giao diện & tương tác</li>
-                                <li>Triển khai và thử nghiệm trên thiết bị</li>
-                            </ul>
-                        </div>
-                    </div>
-
-                    <!-- card: Django -->
-                    <div class="min-w-[300px] snap-start bg-white rounded-3xl p-6 shadow-lg flex items-start space-x-4">
-                        <div class="w-14 h-14 bg-green-50 rounded-full flex items-center justify-center text-green-600">
-                            <i class="fas fa-leaf text-2xl"></i>
-                        </div>
-                        <div>
-                            <h4 class="font-bold text-blue-800 text-lg">Django</h4>
-                            <p class="text-base text-gray-600">Framework Python để phát triển web</p>
-                            <ul class="mt-3 text-sm text-gray-500 space-y-1">
-                                <li>Xây dựng ứng dụng web & API nhanh</li>
-                                <li>Quản trị, mô hình dữ liệu và authentication</li>
-                                <li>Triển khai ứng dụng lên máy chủ</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                <button id="tools-next" aria-label="Next" class="flex items-center justify-center absolute right-0 top-1/2 -translate-y-1/2 -mr-4 w-12 h-12 bg-white rounded-full shadow-md">
-                    <span class="text-2xl text-blue-700">›</span>
-                </button>
-
-                <div id="tools-dots" class="flex items-center justify-center gap-2 mt-4 px-2"></div>
-                <script src="slider.js"></script>
-            </div>
+      <div class="modal-body">
+        <!-- Gallery side -->
+        <div class="modal-gallery">
+          <div class="gallery-main-wrap">
+            <button class="gallery-nav prev" onclick="prevImage()">&#8249;</button>
+            <img id="galleryMainImg" src="" alt="" loading="lazy" />
+            <button class="gallery-nav next" onclick="nextImage()">&#8250;</button>
+            <div class="gallery-counter" id="galleryCounter">1 / 1</div>
+          </div>
+          <div class="gallery-thumbs" id="galleryThumbs"></div>
         </div>
-    </section>
 
-    <section id="courses" class="py-20 bg-white">
-        <div class="max-w-6xl mx-auto px-4">
-            <div class="text-center mb-16">
-                <h2 class="text-3xl font-bold text-blue-900">CHƯƠNG TRÌNH ĐÀO TẠO</h2>
-                <div class="w-24 h-1 bg-orange-500 mx-auto mt-4"></div>
-            </div>
+        <!-- Info side -->
+        <div class="modal-info">
+          <div class="modal-badges" id="modalBadges"></div>
+          <h2 class="modal-name" id="modalName"></h2>
+          <div class="modal-category-tag" id="modalCategoryTag"></div>
 
-            <div class="grid md:grid-cols-3 gap-8">
-                <!-- Scratch -->
-                <div class="bg-white border rounded-2xl p-6 card-hover shadow-sm border-b-8 border-b-blue-500">
-                    <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mb-6">
-                        <i class="fas fa-puzzle-piece text-orange-500 text-2xl"></i>
-                    </div>
-                    <h3 class="text-xl font-bold text-blue-900 mb-3">Lập Trình Scratch (Kids)</h3>
-                    <p class="text-gray-500 mb-6 font-medium leading-relaxed italic text-sm">Dành cho học sinh 7 - 11 tuổi</p>
-                    <ul class="space-y-2 text-gray-700 mb-6">
-                        <li>Làm quen giao diện kéo-thả & vòng lặp cơ bản</li>
-                        <li>Sản xuất game, hoạt hình và dự án nhóm</li>
-                        <li>Phát triển tư duy giải quyết vấn đề</li>
-                    </ul>
-                    <a href="#" class="block text-center py-3 bg-blue-50 text-blue-700 font-bold rounded-xl hover:bg-blue-600 hover:text-white transition">XEM CHI TIẾT</a>
-                </div>
+          <div class="modal-details" id="modalDetails"></div>
 
-                <!-- PictobloxAI -->
-                <div class="bg-white border rounded-2xl p-6 card-hover shadow-sm border-b-8 border-b-purple-500">
-                    <div class="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mb-6">
-                        <i class="fas fa-brain text-purple-600 text-2xl"></i>
-                    </div>
-                    <h3 class="text-xl font-bold text-blue-900 mb-3">Pictoblox AI</h3>
-                    <p class="text-gray-500 mb-6 font-medium leading-relaxed italic text-sm">AI trực quan cho học sinh</p>
-                    <ul class="space-y-2 text-gray-700 mb-6">
-                        <li>Giao diện kéo-thả tích hợp AI</li>
-                        <li>Nhận diện ảnh, xử lý ngôn ngữ cơ bản</li>
-                        <li>Dự án ứng dụng AI trực quan</li>
-                    </ul>
-                    <a href="#" class="block text-center py-3 bg-purple-50 text-purple-700 font-bold rounded-xl hover:bg-purple-600 hover:text-white transition">XEM CHI TIẾT</a>
-                </div>
+          <p class="modal-desc" id="modalDesc"></p>
 
-                <!-- Python -->
-                <div class="bg-white border rounded-2xl p-6 card-hover shadow-sm border-b-8 border-b-orange-500">
-                    <div class="w-16 h-16 bg-orange-100 rounded-full flex items-center justify-center mb-6">
-                        <i class="fab fa-python text-orange-600 text-2xl"></i>
-                    </div>
-                    <h3 class="text-xl font-bold text-blue-900 mb-3">Lập Trình Python & AI</h3>
-                    <p class="text-gray-500 mb-6 font-medium leading-relaxed italic text-sm">Dành cho học sinh 12 - 18 tuổi</p>
-                    <ul class="space-y-2 text-gray-700 mb-6">
-                        <li>Python cơ bản đến nâng cao</li>
-                        <li>Ứng dụng AI nhỏ: chatbot, phân tích dữ liệu</li>
-                        <li>Xây dựng sản phẩm Web/App</li>
-                    </ul>
-                    <a href="#" class="block text-center py-3 bg-orange-50 text-orange-700 font-bold rounded-xl hover:bg-orange-600 hover:text-white transition">XEM CHI TIẾT</a>
-                </div>
-
-                <!-- Front-End Web -->
-                <div class="bg-white border rounded-2xl p-6 card-hover shadow-sm border-b-8 border-b-yellow-500">
-                    <div class="w-16 h-16 bg-yellow-100 rounded-full flex items-center justify-center mb-6">
-                        <i class="fas fa-code text-yellow-600 text-2xl"></i>
-                    </div>
-                    <h3 class="text-xl font-bold text-blue-900 mb-3">Lập Trình Web (HTML, CSS, JS)</h3>
-                    <p class="text-gray-500 mb-6 font-medium leading-relaxed italic text-sm">Xây dựng giao diện web responsive</p>
-                    <ul class="space-y-2 text-gray-700 mb-6">
-                        <li>HTML & CSS cơ bản đến nâng cao</li>
-                        <li>Layout với Flexbox & Grid</li>
-                        <li>JavaScript interactivity & DOM manipulation</li>
-                    </ul>
-                    <a href="#" class="block text-center py-3 bg-yellow-50 text-yellow-700 font-bold rounded-xl hover:bg-yellow-600 hover:text-white transition">XEM CHI TIẾT</a>
-                </div>
-
-                <!-- ToolAI -->
-                <div class="bg-white border rounded-2xl p-6 card-hover shadow-sm border-b-8 border-b-teal-500">
-                    <div class="w-16 h-16 bg-teal-100 rounded-full flex items-center justify-center mb-6">
-                        <i class="fas fa-tools text-teal-600 text-2xl"></i>
-                    </div>
-                    <h3 class="text-xl font-bold text-blue-900 mb-3">ToolAI & Ứng dụng</h3>
-                    <p class="text-gray-500 mb-6 font-medium leading-relaxed italic text-sm">Các công cụ AI hỗ trợ học tập</p>
-                    <ul class="space-y-2 text-gray-700 mb-6">
-                        <li>Công cụ tạo nội dung và hỗ trợ học</li>
-                        <li>Tư duy prompt và ứng dụng thực tế</li>
-                        <li>Kỹ năng sử dụng AI trong học tập</li>
-                    </ul>
-                    <a href="#" class="block text-center py-3 bg-teal-50 text-teal-700 font-bold rounded-xl hover:bg-teal-600 hover:text-white transition">XEM CHI TIẾT</a>
-                </div>
-
-                <!-- Luyện thi HKICO & THT -->
-                <div class="bg-white border rounded-2xl p-6 card-hover shadow-sm border-b-8 border-b-rose-500">
-                    <div class="w-16 h-16 bg-rose-100 rounded-full flex items-center justify-center mb-6">
-                        <i class="fas fa-trophy text-rose-600 text-2xl"></i>
-                    </div>
-                    <h3 class="text-xl font-bold text-blue-900 mb-3">Luyện thi HKICO & THT</h3>
-                    <p class="text-gray-500 mb-6 font-medium leading-relaxed italic text-sm">Chuẩn bị thi cuộc thi lập trình quốc tế</p>
-                    <ul class="space-y-2 text-gray-700 mb-6">
-                        <li>Ôn luyện kỹ thuật & thuật toán cơ bản</li>
-                        <li>Luyện đề thi HKICO, THT và các cuộc thi khác</li>
-                        <li>Chiến lược giải quyết bài toán nhanh chóng</li>
-                    </ul>
-                    <a href="#" class="block text-center py-3 bg-rose-50 text-rose-700 font-bold rounded-xl hover:bg-rose-600 hover:text-white transition">XEM CHI TIẾT</a>
-                </div>
-
-                
-                <!-- end first 6 courses -->
-            </div>
-
-                <!-- hidden: additional courses (will be revealed when user clicks XEM THÊM) -->
-                <div id="more-courses" class="hidden grid md:grid-cols-3 gap-8 mt-6">
-                <!-- Robotics -->
-                <div class="bg-white border rounded-2xl p-6 card-hover shadow-sm">
-                    <div class="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mb-6">
-                        <i class="fas fa-microchip text-red-600 text-2xl"></i>
-                    </div>
-                    <h3 class="text-xl font-bold text-blue-900 mb-3">Kỹ Sư Robotics Nhí</h3>
-                    <p class="text-gray-500 mb-6 font-medium leading-relaxed italic text-sm">Lắp ráp mạch & lập trình robot</p>
-                    <ul class="space-y-2 text-gray-700 mb-6">
-                        <li>Lắp ráp Arduino & Micro:bit</li>
-                        <li>Lập trình điều khiển robot tự hành</li>
-                        <li>Tham gia cuộc thi STEM, dự án thực tế</li>
-                    </ul>
-                    <a href="#" class="block text-center py-3 bg-red-50 text-red-700 font-bold rounded-xl hover:bg-red-600 hover:text-white transition">XEM CHI TIẾT</a>
-                </div>
-
-                <!-- Figma -->
-                <div class="bg-white border rounded-2xl p-6 card-hover shadow-sm">
-                    <div class="w-16 h-16 bg-pink-100 rounded-full flex items-center justify-center mb-6">
-                        <i class="fas fa-pencil-ruler text-pink-600 text-2xl"></i>
-                    </div>
-                    <h3 class="text-xl font-bold text-blue-900 mb-3">Thiết kế UI: Figma</h3>
-                    <p class="text-gray-500 mb-6 font-medium leading-relaxed italic text-sm">Wireframe, prototype và thiết kế</p>
-                    <ul class="space-y-2 text-gray-700 mb-6">
-                        <li>Wireframe và prototype tương tác</li>
-                        <li>Quy trình thiết kế từ ý tưởng</li>
-                        <li>Cộng tác nhóm và feedback</li>
-                    </ul>
-                    <a href="#" class="block text-center py-3 bg-pink-50 text-pink-700 font-bold rounded-xl hover:bg-pink-600 hover:text-white transition">XEM CHI TIẾT</a>
-                </div>
-
-                <!-- Bootstrap -->
-                <div class="bg-white border rounded-2xl p-6 card-hover shadow-sm">
-                    <div class="w-16 h-16 bg-indigo-100 rounded-full flex items-center justify-center mb-6">
-                        <i class="fab fa-bootstrap text-indigo-600 text-2xl"></i>
-                    </div>
-                    <h3 class="text-xl font-bold text-blue-900 mb-3">Bootstrap 5</h3>
-                    <p class="text-gray-500 mb-6 font-medium leading-relaxed italic text-sm">UI nhanh chóng & responsive</p>
-                    <ul class="space-y-2 text-gray-700 mb-6">
-                        <li>Grid, components và utilities</li>
-                        <li>Tùy biến theme và responsive</li>
-                        <li>Tăng tốc phát triển giao diện</li>
-                    </ul>
-                    <a href="#" class="block text-center py-3 bg-indigo-50 text-indigo-700 font-bold rounded-xl hover:bg-indigo-600 hover:text-white transition">XEM CHI TIẾT</a>
-                </div>
-
-                <!-- Canva -->
-                <div class="bg-white border rounded-2xl p-6 card-hover shadow-sm">
-                    <div class="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mb-6">
-                        <i class="fas fa-paint-brush text-red-600 text-2xl"></i>
-                    </div>
-                    <h3 class="text-xl font-bold text-blue-900 mb-3">Thiết kế nội dung: Canva</h3>
-                    <p class="text-gray-500 mb-6 font-medium leading-relaxed italic text-sm">Tạo poster, slide và nội dung trực quan</p>
-                    <ul class="space-y-2 text-gray-700 mb-6">
-                        <li>Sử dụng template & chỉnh sửa nhanh</li>
-                        <li>Tùy chỉnh hình ảnh, font và màu sắc</li>
-                        <li>Chuẩn hóa tài liệu bài giảng</li>
-                    </ul>
-                    <a href="#" class="block text-center py-3 bg-red-50 text-red-700 font-bold rounded-xl hover:bg-red-600 hover:text-white transition">XEM CHI TIẾT</a>
-                </div>
-
-                <!-- IC3 -->
-                <div class="bg-white border rounded-2xl p-6 card-hover shadow-sm">
-                    <div class="w-16 h-16 bg-amber-100 rounded-full flex items-center justify-center mb-6">
-                        <i class="fas fa-certificate text-amber-600 text-2xl"></i>
-                    </div>
-                    <h3 class="text-xl font-bold text-blue-900 mb-3">IC3 - Kỹ năng tin học cơ bản</h3>
-                    <p class="text-gray-500 mb-6 font-medium leading-relaxed italic text-sm">Chuẩn kỹ năng tin học quốc tế</p>
-                    <ul class="space-y-2 text-gray-700 mb-6">
-                        <li>Ôn luyện kỹ năng văn phòng cơ bản</li>
-                        <li>Bài tập thực hành & mô phỏng đề thi</li>
-                    </ul>
-                    <a href="#" class="block text-center py-3 bg-amber-50 text-amber-700 font-bold rounded-xl hover:bg-amber-600 hover:text-white transition">XEM CHI TIẾT</a>
-                </div>
-
-                <!-- MOS -->
-                <div class="bg-white border rounded-2xl p-6 card-hover shadow-sm">
-                    <div class="w-16 h-16 bg-sky-100 rounded-full flex items-center justify-center mb-6">
-                        <i class="fas fa-file-alt text-sky-600 text-2xl"></i>
-                    </div>
-                    <h3 class="text-xl font-bold text-blue-900 mb-3">MOS - Microsoft Office</h3>
-                    <p class="text-gray-500 mb-6 font-medium leading-relaxed italic text-sm">Chuẩn MOS: Word, Excel, PowerPoint</p>
-                    <ul class="space-y-2 text-gray-700 mb-6">
-                        <li>Thực hành theo chuẩn MOS</li>
-                        <li>Chuẩn bị thi và nhận chứng chỉ</li>
-                    </ul>
-                    <a href="#" class="block text-center py-3 bg-sky-50 text-sky-700 font-bold rounded-xl hover:bg-sky-600 hover:text-white transition">XEM CHI TIẾT</a>
-                </div>
-
-                <!-- Swift -->
-                <div class="bg-white border rounded-2xl p-6 card-hover shadow-sm">
-                    <div class="w-16 h-16 bg-orange-50 rounded-full flex items-center justify-center mb-6">
-                        <i class="fas fa-rocket text-orange-600 text-2xl"></i>
-                    </div>
-                    <h3 class="text-xl font-bold text-blue-900 mb-3">Swift & iOS Basics</h3>
-                    <p class="text-gray-500 mb-6 font-medium leading-relaxed italic text-sm">Làm quen Swift, Xcode và app cơ bản</p>
-                    <ul class="space-y-2 text-gray-700 mb-6">
-                        <li>Giao diện & tương tác trên iOS</li>
-                        <li>Thử nghiệm trên thiết bị</li>
-                    </ul>
-                    <a href="#" class="block text-center py-3 bg-orange-50 text-orange-700 font-bold rounded-xl hover:bg-orange-600 hover:text-white transition">XEM CHI TIẾT</a>
-                </div>
-
-                <!-- Django -->
-                <div class="bg-white border rounded-2xl p-6 card-hover shadow-sm">
-                    <div class="w-16 h-16 bg-green-50 rounded-full flex items-center justify-center mb-6">
-                        <i class="fas fa-leaf text-green-600 text-2xl"></i>
-                    </div>
-                    <h3 class="text-xl font-bold text-blue-900 mb-3">Django Web Development</h3>
-                    <p class="text-gray-500 mb-6 font-medium leading-relaxed italic text-sm">Xây dựng web & API với Django</p>
-                    <ul class="space-y-2 text-gray-700 mb-6">
-                        <li>Models, views, templates và authentication</li>
-                        <li>Triển khai ứng dụng cơ bản</li>
-                    </ul>
-                    <a href="#" class="block text-center py-3 bg-green-50 text-green-700 font-bold rounded-xl hover:bg-green-600 hover:text-white transition">XEM CHI TIẾT</a>
-                </div>
-                </div>
-
-                <div class="text-center mt-6">
-                    <button id="courses-toggle" class="px-6 py-3 bg-orange-500 text-white rounded-full font-bold hover:bg-orange-600 transition">XEM THÊM</button>
-                </div>
-                <script src="courses.js"></script>
-            </div>
+          <a class="modal-zalo-btn" id="modalZaloBtn" href="#" target="_blank">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/91/Icon_of_Zalo.svg/120px-Icon_of_Zalo.svg.png" alt="Zalo" width="24" height="24" />
+            Liên hệ Zalo để đặt mua
+          </a>
         </div>
-    </section>
+      </div>
 
-    <section id="about" class="py-20 bg-soft-blue">
-        <div class="max-w-6xl mx-auto px-4">
-            <div class="flex flex-col md:flex-row gap-12 items-center">
-                <div class="md:w-1/2">
-                    <img src="https://img.freepik.com/free-vector/code-typing-concept-illustration_114360-3581.jpg" class="rounded-3xl shadow-lg">
-                </div>
-                <div class="md:w-1/2 space-y-6">
-                    <h2 class="text-3xl font-bold text-blue-900 uppercase">Tại sao nên chọn lớp học của tôi?</h2>
-                    <div class="space-y-4">
-                        <div class="flex items-start space-x-4">
-                            <div class="bg-white p-3 rounded-lg shadow-sm"><i class="fas fa-award text-orange-500 text-xl"></i></div>
-                            <div>
-                                <h4 class="font-bold text-blue-800">Kinh nghiệm thực chiến</h4>
-                                <p class="text-gray-600 text-sm">Từng là Web Developer tại Cstock & Wiki Solution, mang kiến thức thực tế từ doanh nghiệp vào bài giảng.</p>
-                            </div>
-                        </div>
-                        <div class="flex items-start space-x-4">
-                            <div class="bg-white p-3 rounded-lg shadow-sm"><i class="fas fa-user-check text-orange-500 text-xl"></i></div>
-                            <div>
-                                <h4 class="font-bold text-blue-800">Chuyên gia STEAM & AI</h4>
-                                <p class="text-gray-600 text-sm">Sở hữu các chứng chỉ quốc tế về Generative AI, Prompt Engineering và đào tạo Robotics chuyên nghiệp.</p>
-                            </div>
-                        </div>
-                        <div class="flex items-start space-x-4">
-                            <div class="bg-white p-3 rounded-lg shadow-sm"><i class="fas fa-heart text-orange-500 text-xl"></i></div>
-                            <div>
-                                <h4 class="font-bold text-blue-800">Phương pháp truyền cảm hứng</h4>
-                                <p class="text-gray-600 text-sm">Hơn 2.000 giờ dạy, hướng dẫn học sinh đạt Huy chương Vàng Scratch và Bạc Python tại HKICO.</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <div id="course-modal" class="hidden fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4">
-        <div class="bg-white rounded-2xl max-h-[90vh] overflow-y-auto w-full max-w-4xl">
-            <div class="sticky top-0 bg-white border-b flex justify-between items-center p-6">
-                <h2 id="modal-title" class="text-2xl font-bold text-blue-900"></h2>
-                <button id="modal-close" class="text-gray-400 hover:text-gray-600 text-2xl">✕</button>
-            </div>
-            <div id="modal-course-content" class="p-6"></div>
-        </div>
     </div>
+  </div>
 
-    <footer id="contact" class="bg-blue-900 text-white pt-20 pb-10">
-        <div class="max-w-6xl mx-auto px-4 grid md:grid-cols-2 gap-16 border-b border-blue-800 pb-16">
-            <div>
-                <h3 class="text-2xl font-bold mb-6">Đăng Ký Tư Vấn Khóa Học</h3>
-                <p class="mb-8 text-blue-200">Hãy để lại thông tin, thầy Chiến sẽ liên hệ trực tiếp để tư vấn lộ trình học phù hợp nhất cho các em!</p>
-                <form class="space-y-4">
-                    <input type="text" placeholder="Họ tên phụ huynh" class="w-full p-4 rounded-xl bg-blue-800 border-none focus:ring-2 focus:ring-orange-500 outline-none placeholder-blue-300">
-                    <input type="text" placeholder="Số điện thoại" class="w-full p-4 rounded-xl bg-blue-800 border-none focus:ring-2 focus:ring-orange-500 outline-none placeholder-blue-300">
-                    <select class="w-full p-4 rounded-xl bg-blue-800 border-none focus:ring-2 focus:ring-orange-500 outline-none text-blue-300">
-                        <option>Chọn lớp quan tâm</option>
-                        <option>Lập trình Scratch</option>
-                        <option>Lập trình Python/AI</option>
-                        <option>Lập trình Robotics</option>
-                    </select>
-                    <button class="w-full py-4 bg-orange-500 hover:bg-orange-600 rounded-xl font-bold text-lg shadow-lg transition uppercase">Gửi yêu cầu ngay</button>
-                </form>
-            </div>
-            <div>
-                <h3 class="text-2xl font-bold mb-6">Thông Tin Liên Hệ</h3>
-                <div class="space-y-6">
-                    <div class="flex items-center space-x-4">
-                        <i class="fas fa-map-marker-alt text-2xl text-orange-400"></i>
-                        <span>Thành phố Thủ Đức, TP. Hồ Chí Minh</span>
-                    </div>
-                    <div class="flex items-center space-x-4">
-                        <i class="fas fa-phone-alt text-2xl text-orange-400"></i>
-                        <span>0983.666.763</span>
-                    </div>
-                    <div class="flex items-center space-x-4">
-                        <i class="fas fa-envelope text-2xl text-orange-400"></i>
-                        <span>chien97666@gmail.com</span>
-                    </div>
-                    <div class="pt-6">
-                        <h4 class="font-bold mb-4">Theo dõi các bài giảng miễn phí:</h4>
-                        <div class="flex space-x-4 text-3xl">
-                            <a href="https://www.youtube.com/@chienminhnguyen66" class="hover:text-red-500 transition"><i class="fab fa-youtube"></i></a>
-                            <a href="https://github.com/chiennm66" class="hover:text-gray-400 transition"><i class="fab fa-github"></i></a>
-                            <a href="#" class="hover:text-blue-400 transition"><i class="fab fa-facebook"></i></a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="text-center mt-10 text-blue-400 text-sm">
-            © 2026 NGUYEN MINH CHIEN - STEAM EDUCATOR. Design Inspired by LopHoc4Mua.
-        </div>
-    </footer>
+  <!-- SIDEBAR OVERLAY (mobile) -->
+  <div class="sidebar-overlay" id="sidebarOverlay" onclick="toggleSidebar()"></div>
 
-    <script src="coursesData.js"></script>
-    <script src="courseModal.js"></script>
+  <script src="config.js"></script>
+  <script src="app.js"></script>
 </body>
 </html>

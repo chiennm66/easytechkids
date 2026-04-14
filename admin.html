@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin - 3D Models Store</title>
+  <link rel="stylesheet" href="admin.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════════════
+     LOGIN SCREEN
+════════════════════════════════════════════════ -->
+<div class="login-screen" id="loginScreen">
+  <div class="login-box">
+    <div class="login-logo">
+      <svg width="40" height="40" viewBox="0 0 32 32" fill="none">
+        <rect width="32" height="32" rx="8" fill="#2563EB"/>
+        <path d="M8 12l8-4 8 4v8l-8 4-8-4V12z" stroke="white" stroke-width="1.5" fill="none"/>
+        <path d="M8 12l8 4 8-4M16 16v8" stroke="white" stroke-width="1.5"/>
+      </svg>
+      <span>3D<strong>Store</strong> Admin</span>
+    </div>
+    <h2>Đăng nhập quản trị</h2>
+    <p>Nhập mật khẩu để truy cập trang quản lý</p>
+    <div class="login-form">
+      <input type="password" id="loginPassword" placeholder="Mật khẩu..." onkeydown="if(event.key==='Enter') doLogin()" />
+      <button onclick="doLogin()">Đăng nhập</button>
+    </div>
+    <div class="login-hint" id="loginHint"></div>
+    <a href="index.html" class="back-link">← Về trang chủ</a>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════
+     ADMIN PANEL
+════════════════════════════════════════════════ -->
+<div class="admin-wrap" id="adminWrap" style="display:none">
+
+  <!-- SIDEBAR NAV -->
+  <nav class="admin-nav">
+    <div class="nav-logo">
+      <svg width="28" height="28" viewBox="0 0 32 32" fill="none">
+        <rect width="32" height="32" rx="8" fill="#2563EB"/>
+        <path d="M8 12l8-4 8 4v8l-8 4-8-4V12z" stroke="white" stroke-width="1.5" fill="none"/>
+        <path d="M8 12l8 4 8-4M16 16v8" stroke="white" stroke-width="1.5"/>
+      </svg>
+      <span>3DStore</span>
+    </div>
+
+    <ul class="nav-menu">
+      <li class="nav-item active" data-tab="dashboard" onclick="switchTab('dashboard')">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
+        Tổng quan
+      </li>
+      <li class="nav-item" data-tab="models" onclick="switchTab('models')">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>
+        Quản lý Models
+      </li>
+      <li class="nav-item" data-tab="categories" onclick="switchTab('categories')">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>
+        Danh mục
+      </li>
+      <li class="nav-item" data-tab="settings" onclick="switchTab('settings')">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/></svg>
+        Cài đặt
+      </li>
+    </ul>
+
+    <div class="nav-bottom">
+      <a href="index.html" class="nav-view-site" target="_blank">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+        Xem website
+      </a>
+      <button class="nav-logout" onclick="doLogout()">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+        Đăng xuất
+      </button>
+    </div>
+  </nav>
+
+  <!-- MAIN CONTENT -->
+  <main class="admin-main">
+
+    <!-- ─── DASHBOARD ─── -->
+    <div class="tab-content active" id="tab-dashboard">
+      <div class="page-header">
+        <h1>Tổng quan</h1>
+        <span class="page-sub">Quản lý kho 3D Models của bạn</span>
+      </div>
+
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-icon blue">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>
+          </div>
+          <div>
+            <div class="stat-num" id="statTotal">0</div>
+            <div class="stat-label">Tổng models</div>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon green">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+          </div>
+          <div>
+            <div class="stat-num" id="statFree">0</div>
+            <div class="stat-label">FREE models</div>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon purple">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          </div>
+          <div>
+            <div class="stat-num" id="statPro">0</div>
+            <div class="stat-label">PRO models</div>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon orange">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>
+          </div>
+          <div>
+            <div class="stat-num" id="statCats">0</div>
+            <div class="stat-label">Danh mục</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="quick-actions">
+        <h3>Thao tác nhanh</h3>
+        <div class="action-buttons">
+          <button class="action-btn primary" onclick="switchTab('models'); openModelForm()">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+            Thêm model mới
+          </button>
+          <button class="action-btn secondary" onclick="switchTab('categories'); openCategoryForm()">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+            Thêm danh mục
+          </button>
+          <button class="action-btn outline" onclick="exportData()">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            Xuất dữ liệu JSON
+          </button>
+        </div>
+      </div>
+
+      <div class="recent-section">
+        <h3>Models gần đây</h3>
+        <div id="recentModels"></div>
+      </div>
+    </div>
+
+    <!-- ─── MODELS ─── -->
+    <div class="tab-content" id="tab-models">
+      <div class="page-header">
+        <div>
+          <h1>Quản lý Models</h1>
+          <span class="page-sub" id="modelsSubtitle"></span>
+        </div>
+        <button class="btn-add" onclick="openModelForm()">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          Thêm model
+        </button>
+      </div>
+
+      <div class="list-toolbar">
+        <input type="text" class="list-search" id="modelSearch" placeholder="Tìm kiếm model..." oninput="renderModelList()" />
+        <select class="list-filter" id="modelFilterCat" onchange="renderModelList()">
+          <option value="">Tất cả danh mục</option>
+        </select>
+        <select class="list-filter" id="modelFilterType" onchange="renderModelList()">
+          <option value="">Tất cả loại</option>
+          <option value="FREE">FREE</option>
+          <option value="PRO">PRO</option>
+        </select>
+      </div>
+
+      <div class="models-table-wrap">
+        <table class="models-table">
+          <thead>
+            <tr>
+              <th style="width:60px">Ảnh</th>
+              <th>Tên model</th>
+              <th style="width:130px">Danh mục</th>
+              <th style="width:70px">Loại</th>
+              <th style="width:110px">Phần mềm</th>
+              <th style="width:110px">Thao tác</th>
+            </tr>
+          </thead>
+          <tbody id="modelTableBody"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- ─── CATEGORIES ─── -->
+    <div class="tab-content" id="tab-categories">
+      <div class="page-header">
+        <div>
+          <h1>Quản lý Danh mục</h1>
+          <span class="page-sub">Tổ chức phân loại 3D models</span>
+        </div>
+        <button class="btn-add" onclick="openCategoryForm()">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          Thêm danh mục
+        </button>
+      </div>
+
+      <div class="cats-grid" id="catsGrid"></div>
+    </div>
+
+    <!-- ─── SETTINGS ─── -->
+    <div class="tab-content" id="tab-settings">
+      <div class="page-header">
+        <h1>Cài đặt</h1>
+        <span class="page-sub">Cấu hình website</span>
+      </div>
+
+      <div class="settings-grid">
+        <div class="settings-card">
+          <h3>Thông tin liên hệ</h3>
+          <div class="field-group">
+            <label>Số điện thoại Zalo</label>
+            <input type="text" id="settingZalo" placeholder="0912345678" />
+            <span class="field-hint">Người dùng sẽ nhắn tin qua số này</span>
+          </div>
+          <div class="field-group">
+            <label>Tên website</label>
+            <input type="text" id="settingSiteName" placeholder="3D Models Store" />
+          </div>
+          <button class="btn-save" onclick="saveSettings()">Lưu cài đặt</button>
+        </div>
+
+        <div class="settings-card">
+          <h3>Dữ liệu</h3>
+          <div class="data-actions">
+            <div class="data-action-item">
+              <div>
+                <strong>Xuất dữ liệu</strong>
+                <p>Tải xuống toàn bộ dữ liệu dạng JSON để backup</p>
+              </div>
+              <button class="btn-outline" onclick="exportData()">Xuất JSON</button>
+            </div>
+            <div class="data-action-item">
+              <div>
+                <strong>Nhập dữ liệu</strong>
+                <p>Khôi phục từ file JSON đã xuất trước đó</p>
+              </div>
+              <label class="btn-outline import-label">
+                Nhập JSON
+                <input type="file" accept=".json" id="importFile" onchange="importData(this)" style="display:none" />
+              </label>
+            </div>
+            <div class="data-action-item danger">
+              <div>
+                <strong>Xóa tất cả dữ liệu</strong>
+                <p>Xóa toàn bộ models và danh mục, không thể hoàn tác</p>
+              </div>
+              <button class="btn-danger" onclick="clearAllData()">Xóa tất cả</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="settings-card">
+          <h3>Đổi mật khẩu Admin</h3>
+          <div class="field-group">
+            <label>Mật khẩu hiện tại</label>
+            <input type="password" id="oldPassword" placeholder="••••••••" />
+          </div>
+          <div class="field-group">
+            <label>Mật khẩu mới</label>
+            <input type="password" id="newPassword" placeholder="••••••••" />
+          </div>
+          <div class="field-group">
+            <label>Xác nhận mật khẩu mới</label>
+            <input type="password" id="confirmPassword" placeholder="••••••••" />
+          </div>
+          <button class="btn-save" onclick="changePassword()">Đổi mật khẩu</button>
+        </div>
+      </div>
+    </div>
+
+  </main>
+</div>
+
+<!-- ═══════════════════════════════════════════════
+     MODEL FORM DRAWER
+════════════════════════════════════════════════ -->
+<div class="drawer-overlay" id="drawerOverlay" onclick="closeDrawer()"></div>
+<div class="drawer" id="modelDrawer">
+  <div class="drawer-header">
+    <h2 id="drawerTitle">Thêm model mới</h2>
+    <button class="drawer-close" onclick="closeDrawer()">✕</button>
+  </div>
+  <div class="drawer-body">
+    <input type="hidden" id="formId" />
+
+    <div class="form-row">
+      <div class="field-group">
+        <label>Tên model <span class="req">*</span></label>
+        <input type="text" id="formName" placeholder="VD: Modern Sofa Set" />
+      </div>
+    </div>
+
+    <div class="form-row two-col">
+      <div class="field-group">
+        <label>Danh mục <span class="req">*</span></label>
+        <select id="formCategory">
+          <option value="">-- Chọn danh mục --</option>
+        </select>
+      </div>
+      <div class="field-group">
+        <label>Loại <span class="req">*</span></label>
+        <select id="formType">
+          <option value="FREE">FREE - Miễn phí</option>
+          <option value="PRO">PRO - Trả phí</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="form-row two-col">
+      <div class="field-group">
+        <label>Phần mềm</label>
+        <input type="text" id="formSoftware" placeholder="VD: 3ds Max, Blender" />
+      </div>
+      <div class="field-group">
+        <label>Định dạng file</label>
+        <input type="text" id="formFormat" placeholder="VD: MAX, FBX, OBJ" />
+      </div>
+    </div>
+
+    <div class="field-group">
+      <label>
+        Ảnh thumbnail
+        <span class="field-hint-inline">Link Google Drive hoặc URL ảnh</span>
+      </label>
+      <input type="text" id="formThumbnail" placeholder="https://drive.google.com/file/d/..." oninput="previewThumbnail()" />
+      <div class="thumb-preview" id="thumbPreview"></div>
+    </div>
+
+    <div class="field-group">
+      <label>
+        Ảnh gallery (nhiều ảnh)
+        <span class="field-hint-inline">Mỗi link 1 dòng</span>
+      </label>
+      <textarea id="formImages" rows="4" placeholder="https://drive.google.com/file/d/ID1/view&#10;https://drive.google.com/file/d/ID2/view&#10;https://..."></textarea>
+    </div>
+
+    <div class="field-group">
+      <label>Mô tả</label>
+      <textarea id="formDesc" rows="3" placeholder="Mô tả ngắn về model này..."></textarea>
+    </div>
+
+    <div class="field-group">
+      <label>Tags <span class="field-hint-inline">Cách nhau bởi dấu phẩy</span></label>
+      <input type="text" id="formTags" placeholder="VD: sofa, living room, modern" />
+    </div>
+  </div>
+  <div class="drawer-footer">
+    <button class="btn-cancel" onclick="closeDrawer()">Hủy</button>
+    <button class="btn-save-model" onclick="saveModel()">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+      Lưu model
+    </button>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════
+     CATEGORY FORM MODAL
+════════════════════════════════════════════════ -->
+<div class="modal-bg" id="catModal">
+  <div class="cat-modal-box">
+    <div class="modal-header">
+      <h3 id="catModalTitle">Thêm danh mục</h3>
+      <button onclick="closeCatModal()">✕</button>
+    </div>
+    <div class="modal-body-inner">
+      <input type="hidden" id="catFormId" />
+      <div class="field-group">
+        <label>Tên danh mục <span class="req">*</span></label>
+        <input type="text" id="catFormName" placeholder="VD: Furniture, Architecture..." />
+      </div>
+      <div class="field-group">
+        <label>Icon (emoji)</label>
+        <div class="emoji-row">
+          <input type="text" id="catFormIcon" placeholder="🪑" maxlength="4" />
+          <div class="emoji-picks">
+            🏛️ 🚿 🛏️ 🎨 🪑 🍳 💡 🛋️ 🖥️ 🌿 🌱 📜 ⚡ 🖼️ 🚗 📦 🏠 🪴 🛁 🔆
+          </div>
+        </div>
+        <span class="field-hint">Click emoji bên dưới để chọn nhanh</span>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn-cancel" onclick="closeCatModal()">Hủy</button>
+      <button class="btn-save-model" onclick="saveCategory()">Lưu danh mục</button>
+    </div>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+<script src="config.js"></script>
+<script src="admin.js"></script>
+</body>
+</html>
