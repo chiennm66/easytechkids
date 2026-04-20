@@ -15,6 +15,29 @@ const KEYS = {
 
 const DEFAULT_PASSWORD = 'admin123';
 
+// ── CONVERT GOOGLE DRIVE LINKS ───────────────────────────────
+// Giống app.js — dùng khi lưu model để đảm bảo link hiển thị đúng
+// Hỗ trợ: /file/d/ID, open?id=ID, uc?id=ID, lh3.googleusercontent.com/d/ID
+// Hỗ trợ đuôi ảnh thường: .jpg .jpeg .png .webp .gif .avif .bmp
+function convertImg(url) {
+  if (!url) return '';
+  url = url.trim();
+
+  // Đã là direct link → giữ nguyên
+  if (url.includes('uc?export=view&id=')) return url;
+
+  // Dạng /file/d/ID  hoặc googleusercontent /d/ID
+  const slashD = url.match(/\/d\/([a-zA-Z0-9_-]+)/);
+  if (slashD) return `https://drive.google.com/uc?export=view&id=${slashD[1]}`;
+
+  // Dạng ?id=ID  hoặc &id=ID
+  const queryId = url.match(/[?&]id=([a-zA-Z0-9_-]+)/);
+  if (queryId) return `https://drive.google.com/uc?export=view&id=${queryId[1]}`;
+
+  // URL ảnh bình thường → giữ nguyên
+  return url;
+}
+
 // ── SAMPLE MODELS (dữ liệu mẫu ban đầu) ─────────────────────
 const SAMPLE_MODELS = [
   { id:'1', name:'Modern Sofa Set', category:'Furniture', type:'PRO', price:'', thumbnail:'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=400&q=80', images:['https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=800&q=80','https://images.unsplash.com/photo-1506439773649-6e0eb8cfb237?w=800&q=80','https://images.unsplash.com/photo-1493663284031-b7e3aefcae8e?w=800&q=80'], description:'Bộ sofa hiện đại phong cách Bắc Âu, chi tiết cao.', software:'3ds Max', format:'MAX, FBX, OBJ', tags:'sofa,living room,modern' },
@@ -230,8 +253,15 @@ function saveModel() {
   if (!name) { showToast('Vui lòng nhập tên model!', 'error'); return; }
   if (!category) { showToast('Vui lòng chọn danh mục!', 'error'); return; }
 
+  // Convert tất cả link ảnh trước khi lưu
+  const rawThumbnail = convertImg(document.getElementById('formThumbnail').value.trim());
   const rawImages = document.getElementById('formImages').value
-    .split('\n').map(s => s.trim()).filter(Boolean);
+    .split('\n')
+    .map(s => convertImg(s.trim()))
+    .filter(Boolean);
+
+  // Nếu có thumbnail nhưng không có gallery → dùng thumbnail làm gallery
+  const finalImages = rawImages.length > 0 ? rawImages : (rawThumbnail ? [rawThumbnail] : []);
 
   const model = {
     id:          document.getElementById('formId').value || genId(),
@@ -239,8 +269,8 @@ function saveModel() {
     category,
     type:        document.getElementById('formType').value,
     price:       '',
-    thumbnail:   document.getElementById('formThumbnail').value.trim(),
-    images:      rawImages,
+    thumbnail:   rawThumbnail,
+    images:      finalImages,
     description: document.getElementById('formDesc').value.trim(),
     software:    document.getElementById('formSoftware').value.trim(),
     format:      document.getElementById('formFormat').value.trim(),

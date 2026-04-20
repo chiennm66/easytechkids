@@ -32,14 +32,32 @@ const SAMPLE_DATA = [
 ];
 
 // ── GOOGLE DRIVE LINK CONVERT ─────────────────────────────────
+// Hỗ trợ tất cả dạng link Google Drive:
+//   /file/d/ID/view
+//   /file/d/ID/view?usp=sharing
+//   open?id=ID
+//   uc?id=ID  hoặc  uc?export=view&id=ID
+//   lh3.googleusercontent.com/d/ID
 function convertDriveLink(url) {
   if (!url) return '';
   url = url.trim();
-  // Convert sharing link to direct view link
-  const match = url.match(/\/d\/([a-zA-Z0-9_-]+)/);
-  if (match) {
-    return `https://drive.google.com/uc?export=view&id=${match[1]}`;
+
+  // Đã là link direct rồi → giữ nguyên
+  if (url.includes('uc?export=view&id=')) return url;
+
+  // Dạng /file/d/ID  hoặc  /d/ID (googleusercontent)
+  const slashD = url.match(/\/d\/([a-zA-Z0-9_-]+)/);
+  if (slashD) {
+    return `https://drive.google.com/uc?export=view&id=${slashD[1]}`;
   }
+
+  // Dạng open?id=ID  hoặc  uc?id=ID
+  const queryId = url.match(/[?&]id=([a-zA-Z0-9_-]+)/);
+  if (queryId) {
+    return `https://drive.google.com/uc?export=view&id=${queryId[1]}`;
+  }
+
+  // URL ảnh bình thường (jpg, png, webp, gif, jpeg, avif) → giữ nguyên
   return url;
 }
 
@@ -50,8 +68,16 @@ async function fetchFromSheets() {
     try { return JSON.parse(localStorage.getItem('cms_models')); } catch { return null; }
   })();
   if (cmsData && cmsData.length > 0) {
-    console.log(`Dùng dữ liệu từ CMS: ${cmsData.length} models`);
-    return cmsData;
+    // Đảm bảo tất cả link ảnh đều được convert đúng (backward compat)
+    const sanitized = cmsData.map(m => ({
+      ...m,
+      thumbnail: convertDriveLink(m.thumbnail || ''),
+      images: Array.isArray(m.images)
+        ? m.images.map(img => convertDriveLink(img)).filter(Boolean)
+        : (m.thumbnail ? [convertDriveLink(m.thumbnail)] : []),
+    }));
+    console.log(`Dùng dữ liệu từ CMS: ${sanitized.length} models`);
+    return sanitized;
   }
 
   // 2. Thử Google Sheets nếu đã cấu hình
