@@ -231,6 +231,7 @@ function openModelForm(model = null) {
   document.getElementById('formDesc').value = model?.description || '';
   document.getElementById('formTags').value = model?.tags || '';
   previewThumbnail();
+  previewGallery();
 
   document.getElementById('drawerOverlay').classList.add('open');
   document.getElementById('modelDrawer').classList.add('open');
@@ -306,11 +307,21 @@ function deleteModel(id) {
 }
 
 function previewThumbnail() {
-  const url = document.getElementById('formThumbnail').value.trim();
+  const url = convertImg(document.getElementById('formThumbnail').value.trim());
   const preview = document.getElementById('thumbPreview');
   preview.innerHTML = url
-    ? `<img src="${esc(url)}" alt="preview" onerror="this.src=''" />`
+    ? `<img src="${esc(url)}" alt="preview" onerror="this.style.opacity='.3'" />`
     : '';
+}
+
+// Preview các ảnh gallery ngay khi gõ/paste
+function previewGallery() {
+  const raw = document.getElementById('formImages').value;
+  const row = document.getElementById('galleryPreviewRow');
+  const urls = raw.split('\n').map(s => convertImg(s.trim())).filter(Boolean).slice(0, 10);
+  row.innerHTML = urls.map((url, i) =>
+    `<img src="${esc(url)}" alt="ảnh ${i+1}" title="Ảnh ${i+1}" onerror="this.style.opacity='.2'" loading="lazy" />`
+  ).join('');
 }
 
 // ── CATEGORIES ────────────────────────────────────────────────

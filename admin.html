@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Admin - 3D Models Store</title>
-  <link rel="stylesheet" href="admin.css" />
+  <link rel="stylesheet" href="admin.css?v=2" />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
 </head>
 <body>
@@ -331,21 +331,47 @@
       </div>
     </div>
 
+    <!-- HƯỚNG DẪN ẢNH -->
+    <div class="img-guide-box">
+      <div class="img-guide-title">📸 Hướng dẫn đăng ảnh</div>
+      <div class="img-guide-steps">
+        <div class="img-guide-step">
+          <span class="step-num">1</span>
+          <span>Upload ảnh lên <strong>Google Drive</strong> (jpg, png, webp...)</span>
+        </div>
+        <div class="img-guide-step">
+          <span class="step-num">2</span>
+          <span>Chuột phải ảnh → <strong>"Lấy link"</strong> → "Bất kỳ ai có đường link"</span>
+        </div>
+        <div class="img-guide-step">
+          <span class="step-num">3</span>
+          <span>Dán link vào ô bên dưới — hệ thống tự convert</span>
+        </div>
+      </div>
+      <div class="img-guide-formats">
+        Hỗ trợ: <code>drive.google.com/file/d/...</code> &nbsp;·&nbsp;
+        <code>open?id=...</code> &nbsp;·&nbsp;
+        <code>URL ảnh trực tiếp (.jpg .png .webp .gif)</code>
+      </div>
+    </div>
+
     <div class="field-group">
       <label>
-        Ảnh thumbnail
-        <span class="field-hint-inline">Link Google Drive hoặc URL ảnh</span>
+        Ảnh thumbnail (ảnh đại diện)
+        <span class="field-hint-inline">Hiển thị trên card — nên dùng ảnh đẹp nhất</span>
       </label>
-      <input type="text" id="formThumbnail" placeholder="https://drive.google.com/file/d/..." oninput="previewThumbnail()" />
+      <input type="text" id="formThumbnail" placeholder="https://drive.google.com/file/d/ID/view  hoặc  https://example.com/anh.jpg" oninput="previewThumbnail()" />
       <div class="thumb-preview" id="thumbPreview"></div>
     </div>
 
     <div class="field-group">
       <label>
-        Ảnh gallery (nhiều ảnh)
-        <span class="field-hint-inline">Mỗi link 1 dòng</span>
+        Ảnh gallery — nhiều góc chụp
+        <span class="field-hint-inline">Mỗi link 1 dòng · tối đa 10 ảnh</span>
       </label>
-      <textarea id="formImages" rows="4" placeholder="https://drive.google.com/file/d/ID1/view&#10;https://drive.google.com/file/d/ID2/view&#10;https://..."></textarea>
+      <textarea id="formImages" rows="5" oninput="previewGallery()"
+        placeholder="https://drive.google.com/file/d/ID1/view&#10;https://drive.google.com/file/d/ID2/view&#10;https://drive.google.com/file/d/ID3/view&#10;(mỗi dòng 1 link ảnh)"></textarea>
+      <div class="gallery-preview-row" id="galleryPreviewRow"></div>
     </div>
 
     <div class="field-group">
@@ -403,7 +429,7 @@
 <!-- TOAST -->
 <div class="toast" id="toast"></div>
 
-<script src="config.js"></script>
-<script src="admin.js"></script>
+<script src="config.js?v=2"></script>
+<script src="admin.js?v=2"></script>
 </body>
 </html>
