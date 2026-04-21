@@ -42,19 +42,24 @@ function convertDriveLink(url) {
   if (!url) return '';
   url = url.trim();
 
-  // Đã là link direct rồi → giữ nguyên
-  if (url.includes('uc?export=view&id=')) return url;
+  // Đã là thumbnail link → giữ nguyên
+  if (url.includes('drive.google.com/thumbnail?id=')) return url;
+  // Link uc?export=view cũ → convert sang thumbnail
+  if (url.includes('uc?export=view&id=')) {
+    const m = url.match(/[?&]id=([a-zA-Z0-9_-]+)/);
+    if (m) return `https://drive.google.com/thumbnail?id=${m[1]}&sz=w800`;
+  }
 
   // Dạng /file/d/ID  hoặc  /d/ID (googleusercontent)
   const slashD = url.match(/\/d\/([a-zA-Z0-9_-]+)/);
   if (slashD) {
-    return `https://drive.google.com/uc?export=view&id=${slashD[1]}`;
+    return `https://drive.google.com/thumbnail?id=${slashD[1]}&sz=w800`;
   }
 
   // Dạng open?id=ID  hoặc  uc?id=ID
   const queryId = url.match(/[?&]id=([a-zA-Z0-9_-]+)/);
   if (queryId) {
-    return `https://drive.google.com/uc?export=view&id=${queryId[1]}`;
+    return `https://drive.google.com/thumbnail?id=${queryId[1]}&sz=w800`;
   }
 
   // URL ảnh bình thường (jpg, png, webp, gif, jpeg, avif) → giữ nguyên

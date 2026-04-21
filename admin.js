@@ -23,16 +23,21 @@ function convertImg(url) {
   if (!url) return '';
   url = url.trim();
 
-  // Đã là direct link → giữ nguyên
-  if (url.includes('uc?export=view&id=')) return url;
+  // Đã là thumbnail link → giữ nguyên
+  if (url.includes('drive.google.com/thumbnail?id=')) return url;
+  // Link uc?export=view cũ → convert sang thumbnail
+  if (url.includes('uc?export=view&id=')) {
+    const m = url.match(/[?&]id=([a-zA-Z0-9_-]+)/);
+    if (m) return `https://drive.google.com/thumbnail?id=${m[1]}&sz=w800`;
+  }
 
   // Dạng /file/d/ID  hoặc googleusercontent /d/ID
   const slashD = url.match(/\/d\/([a-zA-Z0-9_-]+)/);
-  if (slashD) return `https://drive.google.com/uc?export=view&id=${slashD[1]}`;
+  if (slashD) return `https://drive.google.com/thumbnail?id=${slashD[1]}&sz=w800`;
 
   // Dạng ?id=ID  hoặc &id=ID
   const queryId = url.match(/[?&]id=([a-zA-Z0-9_-]+)/);
-  if (queryId) return `https://drive.google.com/uc?export=view&id=${queryId[1]}`;
+  if (queryId) return `https://drive.google.com/thumbnail?id=${queryId[1]}&sz=w800`;
 
   // URL ảnh bình thường → giữ nguyên
   return url;
