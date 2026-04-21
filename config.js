@@ -7,7 +7,7 @@ const CONFIG = {
   // ── ZALO ──────────────────────────────────────────────────
   // Thay YOUR_PHONE_NUMBER bằng số điện thoại Zalo của bạn
   // Ví dụ: '0912345678'
-  zaloPhone: 'YOUR_PHONE_NUMBER',
+  zaloPhone: '0397490064',
 
   // ── GOOGLE SHEETS ─────────────────────────────────────────
   // Hướng dẫn lấy SHEET_ID:
